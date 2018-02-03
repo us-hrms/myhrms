@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<!-- 人事管理的action配置 -->
+    <package name="personnel" extends="struts-default" namespace="/pers">
+    	<action name="*InAaOf*_*" class="attendanceAction" method="{1}">
+    		<param name="itemId">{2}</param>
+    		<param name="navId">{3}</param>
+    		<result name="tojsp">../${toJsp}.jsp</result>
+    	</action>
+    	<action name="*InAaOf*" class="attendanceAction" method="{1}">
+    		<param name="itemId">{2}</param>
+    		<result name="tojsp">../${toJsp}.jsp</result>
+    	</action>
+    	<action name="*InDaOf*" class="departmentAction" method="{1}">
+    		<param name="itemId">{2}</param>
+    		<result name="tojsp">../${toJsp}.jsp</result>
+    	</action>
+    	<action name="*InHaOf*" class="holidayAction" method="{1}">
+    		<param name="itemId">{2}</param>
+    		<result name="tojsp">../${toJsp}.jsp</result>
+    	</action>
+    	<action name="*InPaaOf*" class="positionAdjustmentAction" method="{1}">
+    		<param name="itemId">{2}</param>
+    		<result name="tojsp">../${toJsp}.jsp</result>
+    	</action>
+    	<action name="*InPaOf*" class="positionAction" method="{1}">
+    		<param name="itemId">{2}</param>
+    		<result name="tojsp">../${toJsp}.jsp</result>
+    	</action>
+    	<action name="*InQsaOf*" class="quitStaffAction" method="{1}">
+    		<param name="itemId">{2}</param>
+    		<result name="tojsp">../${toJsp}.jsp</result>
+    	</action>
+    </package>
+</struts>

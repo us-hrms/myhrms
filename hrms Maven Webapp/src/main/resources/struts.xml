@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<constant name="struts.i18n.encoding" value="UTF-8"/>
+	<constant name="struts.action.extension" value="ajax,html,do,"></constant>
+	<!-- <constant name="struts.objectFactory.spring.autoWire" value="type" /> -->
+    <!-- 配置文件导入 -->
+    <include file="struts2/struts-basic.xml"/>
+    <include file="struts2/struts-personnel.xml"/>
+    <include file="struts2/struts-cultivate.xml"/>
+    <include file="struts2/struts-staffInfo.xml"/>
+    <include file="struts2/struts-system.xml"/>
+    <include file="struts2/struts-wages.xml"/>
+</struts>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<menu>
+	<listgroup id="One" name="人事管理" selected="true" icon="glyphicon-user">
+		<item id="1" name="考勤管理" link="pers/attendanceInAaOf1.html" selected="true"/>
+		<item id="2" name="部门信息" link="pers/departmentInDaOf2.html" selected="false"/>
+		<item id="3" name="职位信息" link="pers/positionInPaOf3.html" selected="false"/>
+		<item id="4" name="假期管理" link="pers/holidayInHaOf4.html" selected="false"/>
+		<item id="5" name="住房管理" link="#" selected="false"/>
+		<item id="6" name="职称聘任记录" link="pers/posiAdjuInfoInPaaOf6.html" selected="false"/>
+		<item id="7" name="职位调整" link="pers/posiAdjuInPaaOf7.html" selected="false"/>
+		<item id="8" name="离职管理" link="pers/quitStaffInQsaOf8.html" selected="false"/>
+	</listgroup>
+	<listgroup id="Two" name="员工信息管理" selected="false" icon="glyphicon-comment">
+		<item id="9" name="员工基本信息" link="staff/staffBaseInfoInSaOf9.html" selected="false"/>
+		<item id="10" name="员工档案" link="staff/staffFileInPfaOf10.html" selected="false"/>
+		<item id="11" name="员工合同管理" link="staff/staffContractInScoaOf11.html" selected="false"/>
+		<item id="12" name="新进员工管理" link="staff/newStaffManagerInSaOf12.html" selected="false"/>
+		<item id="13" name="员工证书记录" link="staff/staffCertificateManagerInSceaOf13.html" selected="false"/>
+	</listgroup>
+	<listgroup id="Three" name="培训计划" selected="false" icon="glyphicon-duplicate">
+		<item id="14" name="培训项目" link="cult/cultivateInCaOf14.html" selected="false"/>
+		<item id="15" name="培训记录" link="cult/cultivateRecordInCraOf15.html" selected="false"/>
+		<item id="16" name="培训人员及成绩" link="cult/cultivateStaffInCsaOf16.html" selected="false"/>
+	</listgroup>
+	<listgroup id="Four" name="薪酬管理" selected="false" icon="glyphicon-yen">
+		<item id="17" name="薪酬发放" link="wages/payWagesInPaOf17.html" selected="false"/>
+		<item id="18" name="薪酬标准信息" link="wages/wagesStandardInWsaOf18.html" selected="false"/>
+		<item id="19" name="薪酬奖罚管理" link="wages/punishmentRewardInPraOf19.html" selected="false"/>
+		<item id="20" name="福利待遇管理" link="#" selected="false"/>
+	</listgroup>
+	<listgroup id="Five" name="系统管理" selected="false" icon="glyphicon-cog">
+		<item id="21" name="用户信息管理" link="#" selected="false"/>
+		<item id="22" name="角色管理" link="#" selected="false"/>
+		<item id="23" name="公司信息管理" link="#" selected="false"/>
+		<item id="24" name="测评分析" link="#" selected="false"/>
+	</listgroup>
+</menu>

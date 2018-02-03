@@ -1,0 +1,100 @@
+
+.transition-loader-container{
+	padding:30px 0px;
+}
+.transition-loader {
+  position: absolute;
+  top: 20%;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+.transition-loader-inner {
+  transform: translateY(-50%);
+  top: 20px;
+  position: absolute;
+  /* 100% - 200px */
+  width: 100%;
+  color: #1E90FF;
+  padding: 0 10px;
+  text-align: center;
+}
+.transition-loader-inner label {
+  font-size: 1em;
+  opacity: 0;
+  width: 20px;
+  display: inline-block;
+  background-color: #1E90FF;
+  border-radius:10px;
+}
+.transition-loader-inner label:after {
+  font-family: FontAwesome;
+  content: '\f111';
+}
+
+.transition-loader-inner label:nth-child(1) {
+  -webkit-animation: loader 3s 600ms infinite ease-in-out;
+  animation: loader 3s 600ms infinite ease-in-out;
+}
+
+.transition-loader-inner label:nth-child(2) {
+  -webkit-animation: loader 3s 500ms infinite ease-in-out;
+  animation: loader 3s 500ms infinite ease-in-out;
+}
+
+.transition-loader-inner label:nth-child(3) {
+  -webkit-animation: loader 3s 400ms infinite ease-in-out;
+  animation: loader 3s 400ms infinite ease-in-out;
+}
+
+.transition-loader-inner label:nth-child(4) {
+  -webkit-animation: loader 3s 300ms infinite ease-in-out;
+  animation: loader 3s 300ms infinite ease-in-out;
+}
+
+.transition-loader-inner label:nth-child(5) {
+  -webkit-animation: loader 3s 200ms infinite ease-in-out;
+  animation: loader 3s 200ms infinite ease-in-out;
+}
+
+.transition-loader-inner label:nth-child(6) {
+  -webkit-animation: loader 3s 100ms infinite ease-in-out;
+  animation: loader 3s 100ms infinite ease-in-out;
+}
+
+@keyframes loader {
+  0% {
+    opacity: 0;
+    transform: translateX(-150px) scale(0.3);
+  }
+  33% {
+    opacity: 1;
+    transform: translateX(0px) scale(0.6);
+  }
+  66% {
+    opacity: 1;
+    transform: translateX(0px) scale(0.3);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(150px) scale(0.6);
+  }
+}
+@-webkit-keyframes loader {
+  0% {
+    opacity: 0;
+    -webkit-transform: translateX(-150px);
+  }
+  33% {
+    opacity: 1;
+    -webkit-transform: translateX(0px);
+  }
+  66% {
+    opacity: 1;
+    -webkit-transform: translateX(0px);
+  }
+  100% {
+    opacity: 0;
+    -webkit-transform: translateX(150px);
+  }
+}

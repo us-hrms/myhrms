@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
+  <display-name>hrms</display-name>
+  <welcome-file-list>
+    <welcome-file>home.html</welcome-file>
+  </welcome-file-list>  
+  <!-- applicationContext.xml位置 -->
+  <context-param>
+  	<param-name>contextConfigLocation</param-name>
+  	<param-value>classpath:applicationContext.xml</param-value>
+  </context-param>
+  <!-- 配置Spring监听 Spring初始化 -->
+  <listener>
+  	<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+  </listener>
+  <!-- 配置Spring请求感知  -->
+  <listener>
+  	<listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
+  </listener>
+  <!-- 配置 servletContext 监听器 -->
+  <listener>
+  	<listener-class>com.hrms.listener.HRMSServletContextListener</listener-class>
+  </listener>
+  <!-- 配置 httpSession 监听器 -->
+  <listener>
+  	<listener-class>com.hrms.listener.HRMSHttpSessionListener</listener-class>
+  </listener>
+  <!-- 在低版本下配置Spring 请求感知 -->
+  <!-- 
+  <filter>
+  	<filter-name>SpringRequest</filter-name>
+  	<filter-class>org.springframework.web.filter.RequestContextFilter</filter-class>
+  </filter>
+  <filter-mapping>
+  	<filter-name>SpringRequest</filter-name>
+  	<url-pattern>/*</url-pattern>
+  </filter-mapping>
+   -->
+  <!-- OpenSessionInViewFilter -->
+  <filter>
+  	<filter-name>OpenSessionInView</filter-name>
+  	<filter-class>org.springframework.orm.hibernate3.support.OpenSessionInViewFilter</filter-class>
+  </filter>
+  <filter-mapping>
+  	<filter-name>OpenSessionInView</filter-name>
+  	<url-pattern>/*</url-pattern>
+  </filter-mapping>
+  <!-- Struts2Filter -->
+  <filter>
+  	<filter-name>struts</filter-name>
+  	<filter-class>org.apache.struts2.dispatcher.ng.filter.StrutsPrepareAndExecuteFilter</filter-class>
+  </filter>
+  <filter-mapping>
+  	<filter-name>struts</filter-name>
+  	<url-pattern>/*</url-pattern>
+  </filter-mapping>
+</web-app>

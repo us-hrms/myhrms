@@ -1,0 +1,25 @@
+body { padding-top: 65px; }
+.list-group-item{
+  text-indent: 50px;
+}
+.list-group-item:hover{
+  background-color: #FFFAF0;
+}
+.panel-heading:hover{
+  background-color: #E1FFFF;
+}
+a{
+  color: inherit;
+  cursor:pointer;
+}
+a:hover,a:link{
+  text-decoration: none;
+}
+.choose{
+  background-color: #B0E2FF;
+}
+
+#container-Edit{
+  display: none;
+  margin-top: -1000px;
+}

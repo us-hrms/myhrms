@@ -1,0 +1,449 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.pro</groupId>
+  <artifactId>hrms</artifactId>
+  <packaging>war</packaging>
+  <version>1.0.0</version>
+  <name>hrms Maven Webapp</name>
+  <url>http://maven.apache.org</url>
+  
+  
+  <!-- 常量定义 -->
+  <properties>
+     <!-- 统一源码的编码方式 -->
+     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+     <!-- 输出编码 -->
+	<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+	<!-- 编译编码 -->
+	<maven.compiler.encoding>UTF-8</maven.compiler.encoding>
+    <!-- 统一各个框架版本 -->
+    <struts.version>2.3.16.1</struts.version>
+    <spring.version>3.2.4.RELEASE</spring.version>
+    <hibernate.version>3.3.1.ga</hibernate.version>
+  </properties>
+  
+  <dependencies>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.8.1</version>
+      <scope>test</scope>
+    </dependency>
+	<!-- servlet API -->
+    <dependency>
+         <groupId>javax.servlet</groupId>
+         <artifactId>javax.servlet-api</artifactId>
+         <version>3.1-b09</version>
+         <scope>provided</scope>
+    </dependency>
+	<dependency>
+    	<groupId>antlr</groupId>
+   	 	<artifactId>antlr</artifactId>
+    	<version>2.7.6rc1</version>
+	</dependency>
+	
+	<dependency>
+	    <groupId>aopalliance</groupId>
+	    <artifactId>aopalliance</artifactId>
+	    <version>1.0</version>
+	</dependency>
+	<!-- jstl -->
+	<dependency>
+		<groupId>jstl</groupId>
+		<artifactId>jstl</artifactId>
+		<version>1.2</version>
+	</dependency>
+	<dependency>
+		<groupId>taglibs</groupId>
+		<artifactId>standard</artifactId>
+		<version>1.1.2</version>
+	</dependency>
+	<!-- AspectJ依赖 -->
+    <dependency>
+         <groupId>org.aspectj</groupId>
+         <artifactId>aspectjweaver</artifactId>
+         <version>1.8.10</version>
+     </dependency>
+     <!--commons 系列组件  -->
+     <dependency>
+    	<groupId>commons-collections</groupId>
+    	<artifactId>commons-collections</artifactId>
+    	<version>3.1</version>
+	 </dependency>
+	<dependency>
+    	<groupId>commons-fileupload</groupId>
+    	<artifactId>commons-fileupload</artifactId>
+    	<version>1.3.1</version>
+	</dependency>
+	<dependency>
+	    <groupId>commons-io</groupId>
+	    <artifactId>commons-io</artifactId>
+	    <version>2.2</version>
+	</dependency>
+	<dependency>
+	    <groupId>org.apache.commons</groupId>
+	    <artifactId>commons-lang3</artifactId>
+	    <version>3.3.1</version>
+	</dependency>
+	<dependency>
+	    <groupId>commons-logging</groupId>
+	    <artifactId>commons-logging</artifactId>
+	    <version>1.1.3</version>
+	</dependency>
+	<dependency>
+	    <groupId>commons-pool</groupId>
+	    <artifactId>commons-pool</artifactId>
+	    <version>1.6</version>
+	</dependency>
+	<dependency>
+	    <groupId>commons-validator</groupId>
+	    <artifactId>commons-validator</artifactId>
+	    <version>1.3.1</version>
+	</dependency>
+	<!-- dom4j xml解析 -->
+	<dependency>
+	    <groupId>dom4j</groupId>
+	    <artifactId>dom4j</artifactId>
+	    <version>1.6.1</version>
+	</dependency>
+	
+	<!-- freemarker模板 -->
+	<dependency>
+	    <groupId>org.freemarker</groupId>
+	    <artifactId>freemarker</artifactId>
+	    <version>2.3.19</version>
+	</dependency>
+	<!-- 字节码处理 -->
+	<dependency>
+	    <groupId>org.javassist</groupId>
+	    <artifactId>javassist</artifactId>
+	    <version>3.18.0-GA</version>
+	</dependency>	
+    
+    <dependency>
+	    <groupId>javax.activation</groupId>
+	    <artifactId>activation</artifactId>
+	    <version>1.1.1</version>
+	</dependency>
+	
+	<dependency>  
+            <groupId>javax.mail</groupId>  
+            <artifactId>mail</artifactId>  
+            <version>1.3.2</version>  
+    </dependency>
+    
+    <dependency>
+	    <groupId>javax.persistence</groupId>
+	    <artifactId>persistence-api</artifactId>
+	    <version>1.0</version>
+	</dependency>
+	<!-- 伪静态 -->
+	<dependency>
+	    <groupId>org.tuckey</groupId>
+	    <artifactId>urlrewritefilter</artifactId>
+	    <version>4.0.3</version>
+	</dependency>
+	
+	<dependency>
+        <groupId>net.sf.json-lib</groupId>
+        <artifactId>json-lib</artifactId>
+        <classifier>jdk15</classifier>
+        <version>2.2.3</version>
+    </dependency>
+	
+	<dependency>
+	    <groupId>javax.transaction</groupId>
+	    <artifactId>jta</artifactId>
+	    <version>1.1</version>
+	</dependency> 
+	<!-- 验证码 1.0 -->
+	<dependency>
+	    <groupId>com.google.code.kaptcha</groupId>
+	    <artifactId>kaptcha</artifactId>
+	    <version>1.0</version>
+	</dependency>
+	<!-- log4j日志 -->
+	<dependency>
+	    <groupId>log4j</groupId>
+	    <artifactId>log4j</artifactId>
+	    <version>1.2.14</version>
+	</dependency>
+	<dependency>
+	    <groupId>org.slf4j</groupId>
+	    <artifactId>slf4j-api</artifactId>
+	    <version>1.5.8</version>
+	</dependency>
+	
+	<dependency>
+	    <groupId>org.slf4j</groupId>
+	    <artifactId>slf4j-log4j12</artifactId>
+	    <version>1.5.8</version>
+	    <scope>test</scope>
+	</dependency>
+    <!-- fastjson -->
+    <dependency>
+		<groupId>com.alibaba</groupId>
+		<artifactId>fastjson</artifactId>
+		<version>1.2.4</version>
+	</dependency>
+    <!--*************【数据库】********************************************************************* -->
+   	<dependency>  
+       	<groupId>commons-dbcp</groupId>  
+       	<artifactId>commons-dbcp</artifactId>  
+       	<version>1.4</version>  
+   	</dependency>
+    <!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
+	<dependency>
+	    <groupId>mysql</groupId>
+	    <artifactId>mysql-connector-java</artifactId>
+	    <version>5.1.10</version>
+	</dependency>
+
+   
+
+    <!--*************【spring】********************************************************************** -->
+    <dependency>
+	    <groupId>org.springframework</groupId>
+	    <artifactId>spring-aop</artifactId>
+	    <version>${spring.version}</version>
+	</dependency>
+	
+	<dependency>
+	    <groupId>org.springframework</groupId>
+	    <artifactId>spring-aspects</artifactId>
+	    <version>${spring.version}</version>
+	</dependency>
+	
+	<dependency>
+	    <groupId>org.springframework</groupId>
+	    <artifactId>spring-beans</artifactId>
+	    <version>${spring.version}</version>
+	</dependency>
+	
+	
+	<dependency>
+	    <groupId>org.springframework</groupId>
+	    <artifactId>spring-context</artifactId>
+	    <version>${spring.version}</version>
+	</dependency>
+	
+	<dependency>
+	    <groupId>org.springframework</groupId>
+	    <artifactId>spring-context-support</artifactId>
+	    <version>${spring.version}</version>
+	</dependency>
+	
+	<dependency>
+	    <groupId>org.springframework</groupId>
+	    <artifactId>spring-core</artifactId>
+	    <version>${spring.version}</version>
+	</dependency>
+	
+	<dependency>
+	    <groupId>org.springframework</groupId>
+	    <artifactId>spring-expression</artifactId>
+	    <version>${spring.version}</version>
+	</dependency>
+	
+	<dependency>
+	    <groupId>org.springframework</groupId>
+	    <artifactId>spring-instrument</artifactId>
+	    <version>${spring.version}</version>
+	</dependency>
+	
+	<dependency>
+	    <groupId>org.springframework</groupId>
+	    <artifactId>spring-jdbc</artifactId>
+	    <version>${spring.version}</version>
+	</dependency>
+	
+	<dependency>
+	    <groupId>org.springframework</groupId>
+	    <artifactId>spring-jms</artifactId>
+	    <version>${spring.version}</version>
+	</dependency>
+	
+	<dependency>
+	    <groupId>org.springframework</groupId>
+	    <artifactId>spring-orm</artifactId>
+	    <version>${spring.version}</version>
+	</dependency>
+	
+	<dependency>
+	    <groupId>org.springframework</groupId>
+	    <artifactId>spring-oxm</artifactId>
+	    <version>${spring.version}</version>
+	</dependency>
+	
+	<dependency>
+	    <groupId>org.springframework</groupId>
+	    <artifactId>spring-test</artifactId>
+	    <version>${spring.version}</version>
+	</dependency>
+	
+	<dependency>
+	    <groupId>org.springframework</groupId>
+	    <artifactId>spring-tx</artifactId>
+	    <version>${spring.version}</version>
+	</dependency>
+	
+	<dependency>
+	    <groupId>org.springframework</groupId>
+	    <artifactId>spring-web</artifactId>
+	    <version>${spring.version}</version>
+	</dependency>
+	
+	<dependency>
+	    <groupId>org.springframework</groupId>
+	    <artifactId>spring-webmvc</artifactId>
+	    <version>${spring.version}</version>
+	</dependency>
+	
+	<dependency>
+	    <groupId>cglib</groupId>
+	    <artifactId>cglib-nodep</artifactId>
+	    <version>3.2.4</version>
+	</dependency>
+    
+    <!--*************【struts2】********************************************************************* -->
+    <dependency>
+	    <groupId>org.apache.neethi</groupId>
+	    <artifactId>neethi</artifactId>
+	    <version>3.0.2</version>
+	</dependency>
+	<dependency>
+	    <groupId>ognl</groupId>
+	    <artifactId>ognl</artifactId>
+	    <version>3.0.6</version>
+	</dependency>
+	
+	<dependency>
+	    <groupId>org.codehaus.woodstox</groupId>
+	    <artifactId>stax2-api</artifactId>
+	    <version>3.1.1</version>
+	</dependency>
+	
+	<dependency>
+	    <groupId>org.apache.struts</groupId>
+	    <artifactId>struts2-core</artifactId>
+	    <version>${struts.version}</version>
+	</dependency>
+	
+	<dependency>
+	    <groupId>org.apache.struts</groupId>
+	    <artifactId>struts2-json-plugin</artifactId>
+	    <version>${struts.version}</version>
+	</dependency>
+	
+	<dependency>
+	    <groupId>org.apache.struts</groupId>
+	    <artifactId>struts2-spring-plugin</artifactId>
+	    <version>${struts.version}</version>
+	</dependency>
+	
+	<dependency>
+	    <groupId>org.apache.struts.xwork</groupId>
+	    <artifactId>xwork-core</artifactId>
+	    <version>2.3.16.1</version>
+	</dependency>
+	
+	<dependency>
+	    <groupId>wsdl4j</groupId>
+	    <artifactId>wsdl4j</artifactId>
+	    <version>1.6.3</version>
+	</dependency>
+    
+	<!--*************【hibernate】******************************************************************* -->
+    <dependency>
+	    <groupId>net.sf.ehcache</groupId>
+	    <artifactId>ehcache</artifactId>
+	    <version>1.2.3</version>
+	</dependency>
+	<dependency>
+	    <groupId>org.hibernate</groupId>
+	    <artifactId>hibernate-annotations</artifactId>
+	    <version>${hibernate.version}</version>
+	</dependency>
+	<dependency>
+	    <groupId>org.hibernate</groupId>
+	    <artifactId>hibernate-annotations</artifactId>
+	    <version>3.2.1.ga</version>
+	</dependency>
+	<!-- hadoop -->
+	<dependency>  
+        <groupId>org.apache.hadoop</groupId>  
+        <artifactId>hadoop-common</artifactId>  
+        <version>2.6.0</version>
+        <!-- 解决jar包重复冲突 -->
+        <exclusions>
+	        <exclusion>
+	            <artifactId>servlet-api</artifactId>
+	            <groupId>javax.servlet</groupId>
+	        </exclusion>
+	        <exclusion>
+	            <artifactId>jasper-compiler</artifactId>
+	            <groupId>tomcat</groupId>
+	        </exclusion>
+	        <exclusion>
+	            <artifactId>jasper-runtime</artifactId>
+	            <groupId>tomcat</groupId>
+	        </exclusion>
+	        <exclusion>
+	            <artifactId>jsp-api</artifactId>
+	            <groupId>javax.servlet.jsp</groupId>
+	        </exclusion>
+	    </exclusions>  
+    </dependency>  
+    <dependency>  
+        <groupId>org.apache.hadoop</groupId>  
+        <artifactId>hadoop-hdfs</artifactId>  
+        <version>2.6.0</version>
+        <!-- 解决jar包重复冲突 -->
+        <exclusions>
+	        <exclusion>
+	            <artifactId>servlet-api</artifactId>
+	            <groupId>javax.servlet</groupId>
+	        </exclusion>
+	    </exclusions>  
+    </dependency>  
+    <dependency>  
+        <groupId>org.apache.hadoop</groupId>  
+        <artifactId>hadoop-client</artifactId>  
+        <version>2.6.0</version>  
+    </dependency>  
+	<!-- hbase -->
+	<dependency>
+	    <groupId>org.apache.hbase</groupId>
+	    <artifactId>hbase-client</artifactId>
+	    <version>1.0.2</version>
+	</dependency>
+	<!-- slf4j -->
+    <dependency>  
+         <groupId>org.slf4j</groupId>  
+         <artifactId>slf4j-log4j12</artifactId>  
+         <version>1.5.8</version>  
+	</dependency>
+	<dependency>
+	    <groupId>org.hibernate</groupId>
+	    <artifactId>hibernate</artifactId>
+	    <version>3.2.1.ga</version>
+	    <!--去除依赖解决jar冲突  -->
+	    <exclusions>
+	    	<exclusion>
+	    		<groupId>asm</groupId>
+	    		<artifactId>asm-attrs</artifactId>
+	    	</exclusion>
+	    	<exclusion>
+	    		<groupId>cglib</groupId>
+    			<artifactId>cglib</artifactId>
+	    	</exclusion>
+	    </exclusions>
+	</dependency>
+  </dependencies>
+  
+  
+  <build>
+    <finalName>hrms</finalName>
+  </build>
+</project>

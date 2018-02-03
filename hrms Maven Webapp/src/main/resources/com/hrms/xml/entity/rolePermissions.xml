@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<roles>
+	<role id="6" />
+	<role id="7">
+		<disabled id="14" />
+		<disabled id="15" />
+		<disabled id="16" />
+		<disabled id="20" />
+		<disabled id="22" />
+		<disabled id="23" />
+	</role>
+	<role id="8">
+		<disabled id="14" />
+		<disabled id="15" />
+		<disabled id="16" />
+		<disabled id="20" />
+		<disabled id="22" />
+		<disabled id="23" />
+	</role>
+	<role id="9">
+		<disabled id="14" />
+		<disabled id="15" />
+		<disabled id="16" />
+		<disabled id="20" />
+		<disabled id="22" />
+		<disabled id="23" />
+		<disabled id="17" />
+		<disabled id="19" />
+	</role>
+	<role id="10">
+		<disabled id="20" />
+		<disabled id="22" />
+		<disabled id="23" />
+	</role>
+</roles>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<navbars>
+	<commone>
+		<nav id="1" name="首页" link="home.html" selected="true" />
+		<nav id="2" name="HRMS" link="pers/attendanceInAaOf1_2.html" />
+	</commone>
+	<customizes>
+		<customize id="1">
+			<nav id="3" name="百度" link="https://www.baidu.com" />
+		</customize>
+		<customize id="2">
+			<nav id="4" name="百度" link="https://www.baidu.com"/>
+		</customize>
+		<customize id="3">
+			<nav id="5" name="百度" link="https://www.baidu.com"/>
+		</customize>
+		<customize id="4">
+			<nav id="6" name="百度" link="https://www.baidu.com"/>
+		</customize>
+	</customizes>
+</navbars>

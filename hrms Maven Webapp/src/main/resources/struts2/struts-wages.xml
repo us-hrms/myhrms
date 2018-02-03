@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<!-- 薪酬管理的action配置 -->
+    <package name="wages" extends="struts-default" namespace="/wages">
+    	<action name="*InPaOf*" class="payWagesAction" method="{1}">
+    		<param name="itemId">{2}</param>
+    		<result name="tojsp">../${toJsp}.jsp</result>
+    	</action>
+    	<action name="*InWsaOf*" class="wagesStandardAction" method="{1}">
+    		<param name="itemId">{2}</param>
+    		<result name="tojsp">../${toJsp}.jsp</result>
+    	</action>
+    	<action name="*InPraOf*" class="punishmentRewardAction" method="{1}">
+    		<param name="itemId">{2}</param>
+    		<result name="tojsp">../${toJsp}.jsp</result>
+    	</action>
+    </package>
+</struts>

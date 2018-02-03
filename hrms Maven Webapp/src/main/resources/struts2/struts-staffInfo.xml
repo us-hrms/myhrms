@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<!-- 员工信息管理的action 配置 -->
+    <package name="staffInfo" extends="struts-default" namespace="/staff">
+    	<action name="*InSaOf*" class="staffAction" method="{1}">
+    		<param name="itemId">{2}</param>
+    		<result name="tojsp">../${toJsp}.jsp</result>
+    	</action>
+    	<action name="*InSceaOf*" class="staffCertificateAction" method="{1}">
+    		<param name="itemId">{2}</param>
+    		<result name="tojsp">../${toJsp}.jsp</result>
+    	</action>
+    	<action name="*InScoaOf*" class="staffContractAction" method="{1}">
+    		<param name="itemId">{2}</param>
+    		<result name="tojsp">../${toJsp}.jsp</result>
+    	</action>
+    	<action name="*InPfaOf*" class="personnelFilesAction" method="{1}">
+    		<param name="itemId">{2}</param>
+    		<result name="tojsp">../${toJsp}.jsp</result>
+    	</action>
+    </package>
+</struts>

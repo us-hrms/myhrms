@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<company> 
+  <property name="name" value="HYH"/>  
+  <property name="responsible" value="岳肖楠"/>  
+  <property name="legalPerson" value="韩永琪"/>  
+  <property name="address" value="广州市天河区"/>  
+  <property name="postalCode" value="512000"/>  
+  <property name="phone" value="020-66666666"/>  
+  <property name="email" value="564743197@qq.com"/> 
+</company>
