@@ -30,7 +30,7 @@
                 <comment>外键 员工类型 来自数据字典表</comment>
             </column>
         </many-to-one>
-        <many-to-one name="wagesStandard" class="com.hrms.entity.WagesStandard" fetch="select">
+        <many-to-one name="wagesStandard" class="com.hrms.entity.WagesStandard" fetch="select" lazy="false">
             <column name="WSId" not-null="true">
                 <comment>外键 工资标准编号 来自工资标准表</comment>
             </column>
@@ -40,7 +40,7 @@
                 <comment>外键 职位编号 来之职位表</comment>
             </column>
         </many-to-one>
-        <many-to-one name="department" class="com.hrms.entity.Department" fetch="select">
+        <many-to-one name="department" class="com.hrms.entity.Department" fetch="select" lazy="false">
             <column name="DId">
                 <comment>外键 部门编号 来自部门表</comment>
             </column>

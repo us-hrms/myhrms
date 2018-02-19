@@ -3,6 +3,8 @@ package com.hrms.entity;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.alibaba.fastjson.annotation.JSONField;
+
 /**
  * WagesStandard entity. @author MyEclipse Persistence Tools
  */
@@ -16,7 +18,9 @@ public class WagesStandard implements java.io.Serializable {
 	private Double transportationAllowance;
 	private Double communicationAllowance;
 	private Double lunchAllowance;
+	@JSONField(serialize=false)
 	private Set payWageses = new HashSet(0);
+	@JSONField(serialize=false)
 	private Set staffs = new HashSet(0);
 
 	// Constructors

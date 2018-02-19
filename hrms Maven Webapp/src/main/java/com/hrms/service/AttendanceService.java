@@ -1,9 +1,12 @@
 package com.hrms.service;
 
 import java.io.Serializable;
+import java.sql.Timestamp;
 import java.util.List;
 
 import com.hrms.entity.Attendance;
+import com.hrms.entity.Staff;
+import com.hrms.page.Page;
 
 public interface AttendanceService {
 	
@@ -32,12 +35,14 @@ public interface AttendanceService {
 	 * @return
 	 */
 	List<Attendance> getAttendances();
+	List<Attendance> getAttendancesOfStaff(Staff staff,Page page);
 	
 	/**
 	 * 根据条件查
 	 * @return
 	 */
 	List<Attendance> getAttendances(Attendance attendance);
+	List<Attendance> getAttendancesOfStaff(Staff staff,Attendance attendance,Timestamp start,Timestamp stop,Page page);
 	
 	/**
 	 * 根据id获得单个对象

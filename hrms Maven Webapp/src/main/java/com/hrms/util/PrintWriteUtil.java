@@ -13,6 +13,7 @@ public class PrintWriteUtil {
 	 * @return
 	 */
 	public static boolean write(HttpServletResponse response,String info){
+		response.setCharacterEncoding("UTF-8");
 		PrintWriter out = null;
 		boolean result = true;
 		try {

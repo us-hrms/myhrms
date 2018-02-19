@@ -3,7 +3,9 @@ package com.hrms.action;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import com.hrms.entity.Staff;
 import com.hrms.entity.StaffMobilization;
+import com.hrms.page.Page;
 import com.hrms.scope.ServletScopeAware;
 
 @Controller
@@ -13,6 +15,10 @@ public class StaffMobilizationAction extends ServletScopeAware {
     private String toAction;
     private StaffMobilization staffMobi;
     private String itemId;
+    private Staff currStaff;
+    
+    //ÍøÒ³Êý¾Ý
+    private Page page;
     
 	public String getToJsp() {
 		return toJsp;
@@ -31,6 +37,13 @@ public class StaffMobilizationAction extends ServletScopeAware {
 	}
 	public void setStaffMobi(StaffMobilization staffMobi) {
 		this.staffMobi = staffMobi;
+	}
+	public Page getPage() {
+		return page;
+	}
+
+	public void setPage(Page page) {
+		this.page = page;
 	}
 
 

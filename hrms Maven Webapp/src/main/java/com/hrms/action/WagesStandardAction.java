@@ -3,7 +3,9 @@ package com.hrms.action;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import com.hrms.entity.Staff;
 import com.hrms.entity.WagesStandard;
+import com.hrms.page.Page;
 import com.hrms.scope.ServletScopeAware;
 import com.hrms.util.MenuHelper;
 
@@ -14,6 +16,10 @@ public class WagesStandardAction extends ServletScopeAware {
     private String toAction;
     private WagesStandard wagesStandard;
     private String itemId;
+    private Staff currStaff;
+    
+    //ÍøÒ³Êý¾Ý
+    private Page page;
     
     public String wagesStandard(){
 
@@ -23,7 +29,14 @@ public class WagesStandardAction extends ServletScopeAware {
     	this.toJsp = "jsp/Wages/wagesStandard";
     	return "tojsp";
     }
-    
+
+	public Page getPage() {
+		return page;
+	}
+
+	public void setPage(Page page) {
+		this.page = page;
+	}
 	public String getToJsp() {
 		return toJsp;
 	}

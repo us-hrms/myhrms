@@ -15,8 +15,7 @@ public class Page implements Serializable {
 	//×ÜÒ³Êý
 	private Integer pageCount;
 	public Page() {
-		super();
-		pageSize = 5;
+		pageSize = 8;
 		pageIndex = 1;
 		// TODO Auto-generated constructor stub
 	}

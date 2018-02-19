@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <!-- JQuery -->
+  <script type="text/javascript" src="../bts/js/jquery-3.2.1.min.js"></script>
+  <!-- load transition -->
+  <link rel="stylesheet" href="..\customize\css\load.css">
+  <!-- tool -->
+  <script type="text/javascript" src="../customize/js/tool.js"></script>
+
+  <!-- Bootstrap -->
+  <script type="text/javascript" src="../bts/js/bootstrap.js"></script>
+  <link rel="stylesheet" href="../bts/css/bootstrap.css">
+  <!-- Semantic -->
+  <!-- <script type="text/javascript" src="../semantic/js/form.min.js"></script> -->
+  <link rel="stylesheet" href="../semantic/components/table.min.css">
+  <link rel="stylesheet" href="../semantic/components/icon.min.css">
+  <link rel="stylesheet" href="../semantic/components/button.min.css">
+
+  <script type="text/javascript">
+    $(function(){
+      //搜索结果模型初始化
+      $("form [data-toggle=modal]").click(function(){
+        $($(this).attr("data-target")).modal();
+        return false;
+      });
+      //tool.js里面的功能
+      $(".edit.icon").click(function(){
+        mySwitch("#container-Info","#container-Edit");
+      });
+    });
+  </script>
+
+  <style type="text/css">
+    body { padding-top: 65px; }
+    .list-group-item{
+      text-indent: 50px;
+    }
+    .list-group-item:hover{
+      background-color: #FFFAF0;
+    }
+    .panel-heading:hover{
+      background-color: #E1FFFF;
+    }
+    a{
+      color: inherit;
+    }
+    a:hover,a:link{
+      text-decoration: none;
+    }
+    .choose{
+      background-color: #B0E2FF;
+    }
+  </style>
+
+  <style type="text/css">
+    #container-Edit{
+      display: none;
+      margin-top: -800px;
+    }
+
+  </style>
+
+</head>
+<body>
+  <!-- Modal -->
+  <div class="modal fade" id="nav-search" tabindex="-1" role="dialog" aria-labelledby="searchHeader" style="margin-top:200px;">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="searchHeader">搜索结果</h4>
+        </div>
+        <div class="modal-body" style="padding:30px 0px;">
+          <!-- loading -->
+          <div class="transition-loader">
+            <div class="transition-loader-inner">
+              <label></label>
+              <label></label>
+              <label></label>
+              <label></label>
+              <label></label>
+              <label></label>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal"> 取 消 </button>
+          <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- navbar-fixed-top -->
+  <nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container" style="width:85%;">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+        <button type="button"  class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#">HYH <span class="glyphicon glyphicon-leaf" aria-hidden="true"></span></a>
+      </div>
+
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav">
+          <!-- <span class="glyphicon glyphicon-home" aria-hidden="true"></span> -->
+          <li ><a href="#">首页<span class="sr-only">(current)</span></a></li>
+          <li class="active"><a href="#">HRMS</a></li>
+          <li class=""><a href="#" title="more..."><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></a></li>
+        </ul>
+        <form class="navbar-form navbar-left">
+          <!-- 搜索表单 -->
+          <div class="form-group">
+            <div class="input-group">
+              <input type="text" class="form-control" placeholder="搜索...">
+              <div class="input-group-btn">
+                <button id="navbar-btn"  type="submit" class="btn btn-default" data-toggle="modal" data-target="#nav-search">
+                  <span  class="glyphicon glyphicon-search"  ></span>
+                </button>
+               </div>
+            </div>
+          </div>
+          <!-- <button type="submit" class="btn btn-default">Submit</button> -->
+        </form>
+        <ul class="nav navbar-nav navbar-right">
+          <!-- <li><a href="../login.html">登录</a></li> -->
+          <!-- 登录后个人选项 -->
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">李四,欢迎您！<span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><a href="#">今日考勤</a></li>
+              <li><a href="#">其它</a></li>
+              <!-- <li><a href="#">Something else here</a></li> -->
+              <li role="separator" class="divider"></li>
+              <li><a href="#">个人信息 <i class="info circle icon"></i></a></li>
+            </ul>
+          </li>
+          <li><a href="#">关于 <span class="glyphicon glyphicon-link"></span></a></li>
+        </ul>
+      </div><!-- /.navbar-collapse -->
+  </div><!-- /.container -->
+</nav>
+<!-- 网页中部 -->
+<div class="row" >
+  <div class="container" style="width:96%;">
+    <div class="col-md-2 sidebar">
+      <!-- 左侧菜单栏 -->
+      <div class="well" >
+          <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+            <!-- 人事管理 -->
+            <div class="panel panel-default">
+              <div class="panel-heading" role="tab" id="headingOne">
+                <h4 class="panel-title">
+                  <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                  <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="" aria-controls="collapseOne">
+                    人事管理
+                  </a>
+                </h4>
+              </div>
+              <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                <ul class="list-group">
+                  <li class="list-group-item"><a href="#">考勤管理</a></li>
+                  <li class="list-group-item"><a href="#">部门信息</a></li>
+                  <li class="list-group-item"><a href="#">职位信息</a></li>
+                  <li class="list-group-item  choose"><a href="#">假期管理</a></li>
+                  <li class="list-group-item"><a href="#">住房管理</a></li>
+                  <li class="list-group-item"><a href="#">职称聘任记录</a></li>
+                  <li class="list-group-item"><a href="#">职位调整</a></li>
+                  <li class="list-group-item"><a href="#">离职管理</a></li>
+                </ul>
+              </div>
+            </div>
+            <!-- 员工信息管理 -->
+            <div class="panel panel-default">
+              <div class="panel-heading" role="tab" id="headingTwo">
+                <h4 class="panel-title">
+                  <span class="glyphicon glyphicon-comment" aria-hidden="true"></span>
+                  <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="" aria-controls="collapseTwo">
+                    员工信息管理
+                  </a>
+                </h4>
+              </div>
+              <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+                <ul class="list-group">
+                  <li class="list-group-item">员工基本信息</li>
+                  <li class="list-group-item">员工档案</li>
+                  <li class="list-group-item">员工合同管理</li>
+                  <li class="list-group-item">新进员工管理</li>
+                  <li class="list-group-item">员工证书记录</li>
+                </ul>
+              </div>
+            </div>
+            <!-- 培训计划 -->
+            <div class="panel panel-default">
+              <div class="panel-heading" role="tab" id="headingThree">
+                <h4 class="panel-title">
+                  <span class="glyphicon glyphicon-duplicate" aria-hidden="true"></span>
+                  <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="" aria-controls="collapseThree">
+                    培训计划
+                  </a>
+                </h4>
+              </div>
+              <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+                <ul class="list-group">
+                  <li class="list-group-item">培训项目</li>
+                  <li class="list-group-item">培训记录</li>
+                  <li class="list-group-item">培训人员及成绩</li>
+                </ul>
+              </div>
+            </div>
+            <!-- 薪酬管理 -->
+            <div class="panel panel-default">
+              <div class="panel-heading" role="tab" id="headingFour">
+                <h4 class="panel-title">
+                  <span class="glyphicon glyphicon-yen" aria-hidden="true"></span>
+                  <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFour" aria-expanded="" aria-controls="collapseFour">
+                    薪酬管理
+                  </a>
+                </h4>
+              </div>
+              <div id="collapseFour" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFour">
+                <ul class="list-group">
+                  <li class="list-group-item">薪酬发放</li>
+                  <li class="list-group-item">薪酬标准信息</li>
+                  <li class="list-group-item">薪酬奖罚管理</li>
+                  <li class="list-group-item">福利待遇管理</li>
+                </ul>
+              </div>
+            </div>
+            <!-- 系统管理 -->
+            <div class="panel panel-default">
+              <div class="panel-heading" role="tab" id="headingFive">
+                <h4 class="panel-title">
+                  <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+                  <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFive" aria-expanded="" aria-controls="collapseFive">
+                    系统管理
+                  </a>
+                </h4>
+              </div>
+              <div id="collapseFive" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFive">
+                <ul class="list-group">
+                  <li class="list-group-item">用户信息管理</li>
+                  <li class="list-group-item">角色管理</li>
+                  <li class="list-group-item">公司信息管理</li>
+                  <li class="list-group-item">测评分析</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+      </div>
+    </div>
+
+
+    <div class="col-md-10 main">
+      <div class="container-fluid well" id="container-Info">
+        <!-- search header -->
+        <div class="container-fluid" style="border-top:1px dashed #87CEEB;border-bottom:1px dashed #87CEEB;border-radius:20px;padding:20px 0px 10px 0px;max-width:90%;">
+        <form >
+          <div class="form-group form-inline text-center col-md-offset-1 col-md-10">
+            <div class="form-group col-md-6">
+                <label class="control-label">工 号：</label>
+                <input type="text" class="form-control" placeholder="No">
+            </div>
+            <div class="form-group col-md-6">
+                <label class="control-label">姓 名：</label>
+                <input type="text" class="form-control" placeholder="Like Staff Name">
+            </div>
+          </div>
+          <div class="form-group form-inline text-center col-md-offset-1 col-md-10">
+            <div class="form-group col-md-6">
+                <label class="control-label">部 门：</label>
+                <select class="form-control" style="width:196px;">
+                  <option value="-1">全部</option>
+                  <option>部门1</option>
+                  <option>部门2</option>
+                  <option>部门3</option>
+                  <option>部门4</option>
+                </select>
+            </div>
+            <div class="form-group col-md-6">
+                <label class="control-label">职 位：</label>
+                <select class="form-control" style="width:196px;">
+                  <option value="-1">全部</option>
+                  <option>职位1</option>
+                  <option>职位2</option>
+                  <option>职位3</option>
+                  <option>职位4</option>
+                </select>
+            </div>
+          </div>
+          <div class="form-group form-inline text-center col-md-offset-1 col-md-10">
+            <div class="form-group col-md-offset-4 col-md-4">
+              <button class="btn btn-info btn-block"><span style="letter-spacing:30px;">查</span>询</button>
+            </div>
+          </div>
+        </form>
+        </div>
+        <!-- attendance info -->
+        <div class="container-fluid" style="margin-top:20px;border-left:1px dashed #008080;border-right:1px dashed #008080;border-radius:20px;padding:30px 40px 0px;max-width:95%;">
+          <table class="ui blue selectable celled table">
+            <thead>
+              <tr>
+                <th colspan="5" class="h4 center aligned"><span style="letter-spacing:20px;">员工假期信</span>息</th>
+              </tr>
+              <tr>
+                <th>工号 / No</th>
+                <th>姓名 / Name</th>
+                <th>时间 / Date</th>
+                <th>性质 / Type</th>
+                <th class="center aligned">操作 / Operating</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>1</td>
+                <td>No Action</td>
+                <td >None</td>
+                <!-- data-content="Vivamus sagittis lacus vel augue  laoreet rutrum faucibus." -->
+                <td>None</td>
+                <td class="center aligned">
+                  <a href="#" title="查看"><i class="unhide icon text-info"></i></a>
+                  <a href="#" title="修改"><i class="edit icon text-success"></i></a>
+                  <a href="#" title="删除"><i class="trash outline icon text-danger"></i></a>
+                </td>
+              </tr>
+              <tr>
+                <td>2</td>
+                <td>Approved</td>
+                <td >Requires call</td>
+                <td>None</td>
+                <td class="center aligned disabled">
+                  <a href="#" title="查看"><i class="unhide icon text-info"></i></a>
+                  <a href="#" title="修改"><i class="edit icon text-success"></i></a>
+                  <a href="#" title="删除"><i class="trash outline icon text-danger"></i></a>
+                </td>
+              </tr>
+              <tr>
+                <td>3</td>
+                <td>Denied</td>
+                <td >None</td>
+                <td>None</td>
+                <td class="center aligned">
+                  <a href="#" title="查看"><i class="unhide icon text-info"></i></a>
+                  <a href="#" title="修改"><i class="edit icon text-success"></i></a>
+                  <a href="#" title="删除"><i class="trash outline icon text-danger"></i></a>
+                </td>
+              </tr>
+              <tr>
+                <td>4</td>
+                <td>No Action</td>
+                <td >None</td>
+                <td>None</td>
+                <td class="center aligned">
+                  <a href="#" title="查看"><i class="unhide icon text-info"></i></a>
+                  <a href="#" title="修改"><i class="edit icon text-success"></i></a>
+                  <a href="#" title="删除"><i class="trash outline icon text-danger"></i></a>
+                </td>
+              </tr>
+              <tr>
+                <td>5</td>
+                <td>Approved</td>
+                <td >Requires call</td>
+                <td>None</td>
+                <td class="center aligned">
+                  <a href="#" title="查看"><i class="unhide icon text-info"></i></a>
+                  <a href="#" title="修改"><i class="edit icon text-success"></i></a>
+                  <a href="#" title="删除"><i class="trash outline icon text-danger"></i></a>
+                </td>
+              </tr>
+              <tr>
+                <td>6</td>
+                <td>Denied</td>
+                <td >None</td>
+                <td>None</td>
+                <td class="center aligned">
+                  <a href="#" title="查看"><i class="unhide icon text-info"></i></a>
+                  <a href="#" title="修改"><i class="edit icon text-success"></i></a>
+                  <a href="#" title="删除"><i class="trash outline icon text-danger"></i></a>
+                </td>
+              </tr>
+              <tr>
+                <td>7</td>
+                <td>Denied</td>
+                <td >None</td>
+                <td>None</td>
+                <td class="center aligned">
+                  <a href="#" title="查看"><i class="unhide icon text-info"></i></a>
+                  <a href="#" title="修改"><i class="edit icon text-success"></i></a>
+                  <a href="#" title="删除"><i class="trash outline icon text-danger"></i></a>
+                </td>
+              </tr>
+              <tr>
+                <td>8</td>
+                <td>Denied</td>
+                <td >None</td>
+                <td>None</td>
+                <td class="center aligned">
+                  <a href="#" title="查看"><i class="unhide icon text-info"></i></a>
+                  <a href="#" title="修改"><i class="edit icon text-success"></i></a>
+                  <a href="#" title="删除"><i class="trash outline icon text-danger"></i></a>
+                </td>
+              </tr>
+              <tr>
+                <td>9</td>
+                <td>Denied</td>
+                <td >None</td>
+                <td>None</td>
+                <td class="center aligned">
+                  <a href="#" title="查看"><i class="unhide icon text-info"></i></a>
+                  <a href="#" title="修改"><i class="edit icon text-success"></i></a>
+                  <a href="#" title="删除"><i class="trash outline icon text-danger"></i></a>
+                </td>
+              </tr>
+            </tbody>
+            <tfoot class="full-width">
+              <tr>
+                <th colspan="5">
+                  <!-- <div class="ui right floated small primary labeled icon button"><i class="user icon"></i> 新增部门 </div> -->
+                  <div class="col-md-2 col-md-offset-5">
+                    <button class="btn btn-info btn-block" data-toggle="modal" data-target="#newDept"><span style="letter-spacing:10px;">添加假期信</span>息</button>
+                  </div>
+                </th>
+              </tr>
+            </tfoot>
+          </table>
+
+          <!-- 新增部门 Model -->
+          <div class="modal fade" id="newDept" tabindex="-1" role="dialog" aria-labelledby="deptModel" style="margin-top:230px;">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                  <h4 class="modal-title" id="deptModel">添加假期信息</h4>
+                </div>
+                <div class="modal-body">
+                  ...
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                  <button type="button" class="btn btn-primary">添加</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- 分页 -->
+          <div class="text-center">
+            <ul class="pagination">
+              <li><a href="#">上一页</a></li>
+              <li class="active"><a>1</a></li>
+              <li><a href="#">2</a></li>
+              <li><a href="#">3</a></li>
+              <li><a href="#">4</a></li>
+              <li><a href="#">5</a></li>
+              <li><a href="#">下一页</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- background -->
+      <div class="container-fluid well" id="container-Edit">
+        <!-- search header -->
+        <div class="container-fluid" style="border-top:1px dashed #87CEEB;border-bottom:1px dashed #87CEEB;border-radius:20px;padding:20px 0px 10px 0px;max-width:90%;">
+        <form >
+          表单
+        </form>
+        </div>
+        <!-- attendance info -->
+        <div class="container-fluid" style="margin-top:20px;border-left:1px dashed #008080;border-right:1px dashed #008080;border-radius:20px;padding:30px 40px 0px;max-width:95%;">
+          编辑内容区域
+        </div>
+      </div><!-- back -->
+
+    </div>
+
+
+
+  </div>
+</div>
+</body>
+</html>

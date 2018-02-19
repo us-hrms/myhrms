@@ -8,6 +8,7 @@
 	<constant name="struts.action.extension" value="ajax,html,do,"></constant>
 	<!-- <constant name="struts.objectFactory.spring.autoWire" value="type" /> -->
     <!-- 配置文件导入 -->
+    <include file="struts2/struts-interceptor.xml"/>
     <include file="struts2/struts-basic.xml"/>
     <include file="struts2/struts-personnel.xml"/>
     <include file="struts2/struts-cultivate.xml"/>

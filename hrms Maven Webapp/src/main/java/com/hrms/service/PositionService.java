@@ -3,6 +3,7 @@ package com.hrms.service;
 import java.util.List;
 
 import com.hrms.entity.Position;
+import com.hrms.page.Page;
 
 public interface PositionService {
    
@@ -29,12 +30,14 @@ public interface PositionService {
 	 * @return
 	 */
 	List<Position> getPositions();
+	
 	/**
 	 * 根据条件查询职位
 	 * @param position
 	 * @return
 	 */
 	List<Position> getPositions(Position position);
+	List<Position> getPositions(Position position,Page page);
 	/**
 	 * 根据id查询单个职位
 	 * @param id

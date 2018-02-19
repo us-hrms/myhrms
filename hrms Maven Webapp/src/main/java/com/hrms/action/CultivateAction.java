@@ -4,6 +4,8 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
 import com.hrms.entity.Cultivate;
+import com.hrms.entity.Staff;
+import com.hrms.page.Page;
 import com.hrms.scope.ServletScopeAware;
 import com.hrms.util.MenuHelper;
 
@@ -14,6 +16,10 @@ public class CultivateAction extends ServletScopeAware {
     private String toJsp;
     private String toAction;
     private String itemId;
+    private Staff currStaff;
+    
+    //ÍøÒ³Êý¾Ý
+    private Page page;
     
     public String cultivate(){
 
@@ -23,7 +29,14 @@ public class CultivateAction extends ServletScopeAware {
     	this.toJsp = "jsp/cultivatePlan/cultivate";
     	return "tojsp";
     }
-    
+
+	public Page getPage() {
+		return page;
+	}
+
+	public void setPage(Page page) {
+		this.page = page;
+	}
 	public Cultivate getCultivate() {
 		return cultivate;
 	}

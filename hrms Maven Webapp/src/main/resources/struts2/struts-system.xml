@@ -5,7 +5,10 @@
 
 <struts>
 	<!-- 系统管理的action配置区域 -->
-    <package name="system" extends="struts-default" namespace="/sys">
+    <package name="system" extends="my-struts" namespace="/sys">
+    	<global-results>
+    		<result name="toHome" type="redirect">../home.html</result>
+    	</global-results>
     	
     </package>
 </struts>

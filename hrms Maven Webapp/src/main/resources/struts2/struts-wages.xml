@@ -5,7 +5,10 @@
 
 <struts>
 	<!-- 薪酬管理的action配置 -->
-    <package name="wages" extends="struts-default" namespace="/wages">
+    <package name="wages" extends="my-struts" namespace="/wages">
+    	<global-results>
+    		<result name="toHome" type="redirect">../home.html</result>
+    	</global-results>
     	<action name="*InPaOf*" class="payWagesAction" method="{1}">
     		<param name="itemId">{2}</param>
     		<result name="tojsp">../${toJsp}.jsp</result>

@@ -4,6 +4,8 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.alibaba.fastjson.annotation.JSONField;
+
 /**
  * Staff entity. @author MyEclipse Persistence Tools
  */
@@ -29,23 +31,39 @@ public class Staff implements java.io.Serializable {
 	private String phone;
 	private String email;
 	private String photo;
+	@JSONField(serialize=false)
 	private Set positionAdjustments = new HashSet(0);
+	@JSONField(serialize=false)
 	private Set payWageses = new HashSet(0);
+	@JSONField(serialize=false)
 	private Set cultivateRecords = new HashSet(0);
+	@JSONField(serialize=false)
 	private Set attendances = new HashSet(0);
+	@JSONField(serialize=false)
 	private Set staffMobilizations = new HashSet(0);
+	@JSONField(serialize=false)
 	private Set cultivateStaffs = new HashSet(0);
+	@JSONField(serialize=false)
 	private Set staffCertificates = new HashSet(0);
+	@JSONField(serialize=false)
 	private Set quitStaffs = new HashSet(0);
+	@JSONField(serialize=false)
 	private Set holidaies = new HashSet(0);
+	@JSONField(serialize=false)
 	private Set personnelFileses = new HashSet(0);
+	@JSONField(serialize=false)
 	private Set punishmentRewards = new HashSet(0);
+	@JSONField(serialize=false)
 	private Set staffContracts = new HashSet(0);
 
 	// Constructors
 
 	/** default constructor */
 	public Staff() {
+	}
+	public Staff(Department department,DataDictionary dataDictionaryByTypeId) {
+		this.department = department;
+		this.dataDictionaryByTypeId = dataDictionaryByTypeId;
 	}
 
 	/** minimal constructor */

@@ -7,11 +7,18 @@
 	<!-- 基本功能的action配置 -->
     <package name="basic" extends="struts-default" namespace="/">
     	<default-action-ref name="home" />
+    	<global-results>
+    		<result name="toHome" type="redirect">home.html</result>
+    	</global-results>
     	<action class="staffAction" name="*InSa" method="{1}" >
     		<result name="{1}Success" >${toJsp}.jsp</result>
+    		<result name="toAction" type="redirect">${toAction}.html</result>
     	</action>
     	<action class="homeAction" name="home" method="toHome">
     		<result>${toJsp}.jsp</result>
+    	</action>
+    	<action class="dataDictionaryAction" name="*InDda" method="{1}">
+    		<result name="tojsp">${toJsp}.jsp</result>
     	</action>
     </package>
 </struts>

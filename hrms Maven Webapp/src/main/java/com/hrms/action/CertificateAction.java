@@ -4,6 +4,8 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
 import com.hrms.entity.Certificate;
+import com.hrms.entity.Staff;
+import com.hrms.page.Page;
 import com.hrms.scope.ServletScopeAware;
 
 @Controller
@@ -13,6 +15,10 @@ public class CertificateAction extends ServletScopeAware {
     private String toAction;
     private Certificate certificate;
     private String itemId;
+    private Staff currStaff;
+    
+    //ÍøÒ³Êý¾Ý
+    private Page page;
     
     
     
@@ -33,6 +39,13 @@ public class CertificateAction extends ServletScopeAware {
 	}
 	public void setCertificate(Certificate certificate) {
 		this.certificate = certificate;
+	}
+	public Page getPage() {
+		return page;
+	}
+
+	public void setPage(Page page) {
+		this.page = page;
 	}
 
 

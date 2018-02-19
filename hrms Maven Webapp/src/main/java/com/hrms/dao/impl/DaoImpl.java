@@ -86,9 +86,17 @@ public class DaoImpl extends HibernateDaoSupport implements Dao {
 	 * 根据 hql 和 集合传参 查询
 	 */
 	@Override
-	public List find(String hql,Map map) {
+	public List find(final String hql,final Map map) {
 		// TODO Auto-generated method stub
-		return this.getHibernateTemplate().find(hql, map);
+		return this.getHibernateTemplate().execute(new HibernateCallback<List>() {
+			@Override
+			public List doInHibernate(Session session) throws HibernateException,
+					SQLException {
+				// TODO Auto-generated method stub
+				Query query = session.createQuery(hql).setProperties(map);
+				return query.list();
+			}
+		});
 	}
 
 	
@@ -114,7 +122,7 @@ public class DaoImpl extends HibernateDaoSupport implements Dao {
 			public List doInHibernate(Session session) throws HibernateException,
 					SQLException {
 				// TODO Auto-generated method stub
-				Query query = session.createQuery(hql);
+				Query query = session.createQuery(hql).setProperties(entity);
 				//更新page对象的总页数
 				page.setPageCountBySize(query.list().size());
 				query.setFirstResult((page.getPageIndex()-1)*page.getPageSize()).setMaxResults(page.getPageSize());

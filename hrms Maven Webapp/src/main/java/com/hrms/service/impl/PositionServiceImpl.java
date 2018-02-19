@@ -1,13 +1,18 @@
 package com.hrms.service.impl;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.hrms.dao.Dao;
 import com.hrms.entity.Position;
+import com.hrms.page.Page;
 import com.hrms.service.PositionService;
+import com.hrms.util.HQLHelper;
 
 @Service
 public class PositionServiceImpl implements PositionService {
@@ -67,6 +72,27 @@ public class PositionServiceImpl implements PositionService {
 	public Position getPosition(Position id) {
 		// TODO Auto-generated method stub
 		return (Position) dao.get(Position.class, id);
+	}
+
+	@Override
+	public List<Position> getPositions(Position position, Page page) {
+		// TODO Auto-generated method stub
+		List<String> params = new ArrayList<String>();
+		Map<String, Object> map = new HashMap<String, Object>();
+		if(position != null){
+			if(position.getName() != null){
+				params.add(" name like :name ");
+				map.put("name", "%"+position.getName()+"%");
+			}
+			if(position.getDepartment()!=null && position.getDepartment().getId()!=null){
+				params.add(" department.id = :id ");
+				map.put("id", position.getId());
+			}
+		}
+		//合成条件语句
+		StringBuffer param = HQLHelper.toHqlWhere(params);
+		dao.find("from Position "+(params.size()>0?" where "+param.toString():""), map,page);
+		return null;
 	} 
     
 	

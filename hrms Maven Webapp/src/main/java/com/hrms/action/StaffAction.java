@@ -1,5 +1,6 @@
 package com.hrms.action;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -7,7 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import com.alibaba.fastjson.JSONObject;
+import com.hrms.entity.DataDictionary;
+import com.hrms.entity.Department;
 import com.hrms.entity.Staff;
+import com.hrms.page.Page;
 import com.hrms.scope.ServletScopeAware;
 import com.hrms.service.StaffService;
 import com.hrms.util.MenuHelper;
@@ -28,6 +33,11 @@ public class StaffAction extends ServletScopeAware {
     private String toAction;
     private String itemId;
     private Long navId;
+    private Staff currStaff;
+    
+    //网页数据
+    private Page page;
+    private List<Staff> staffList;
     
     /**
      * 去登录页面
@@ -81,6 +91,13 @@ public class StaffAction extends ServletScopeAware {
     	return "tojsp";
     }
     
+    public String loginOut(){
+    	//销毁session
+    	session.invalidate();
+    	this.toAction = "home";
+    	return "toAction";
+    }
+    
     public String staffBaseInfo(){
 
 		//设置菜单选项
@@ -89,7 +106,29 @@ public class StaffAction extends ServletScopeAware {
     	this.toJsp = "jsp/staffInfoManager/staffBaseInfo";
     	return "tojsp";
     }
-	
+    
+    public String getDeptStaffByAjax(){
+    	Long [] arr = {6l,7l,8l,10l};
+    	int i = 0;
+    	while (i<arr.length) {
+    		if(staffList == null)
+    			staffList = new ArrayList<Staff>();
+    		staff.setDataDictionaryByTypeId(new DataDictionary(arr[i]));
+    		List<Staff> results = staffService.getStaffsByHql(staff);
+        	staffList.addAll(staffService.getStaffsByHql(staff));
+        	i++;
+		}
+		PrintWriteUtil.write(response,staffList.size()>0?JSONObject.toJSONString(staffList):"暂无");
+    	return null;
+    }
+
+	public Page getPage() {
+		return page;
+	}
+
+	public void setPage(Page page) {
+		this.page = page;
+	}
 	public StaffService getStaffService() {
 		return staffService;
 	}

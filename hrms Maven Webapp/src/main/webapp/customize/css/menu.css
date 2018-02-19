@@ -1,4 +1,10 @@
-body { padding-top: 65px; }
+.mybody{
+	max-width:96%;
+	margin-top:60px;
+}
+.mybody .mycontext{
+	max-width: 94%;
+}
 .list-group-item{
   text-indent: 50px;
 }

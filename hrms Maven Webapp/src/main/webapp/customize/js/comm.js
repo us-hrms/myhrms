@@ -1,3 +1,16 @@
+
+//异步加载字典数据
+function dataDictionary(tableCloumn,fun){
+	$.ajax({
+		url:"${pageContext.request.contextPath }/getDateDictsByAjaxInDda.do",
+		data:"dataDictionary.tableColumn="+tableCloumn,
+		type:"post",
+		dataType:"json",
+		success:function(data){
+			fun(data);
+		}
+	});
+};
 $(function(){
   
   //搜索结果模型初始化
@@ -12,5 +25,18 @@ $(function(){
 	$(tg).children("form").attr("url",$(this).attr("href"));
 	$(this).attr("href", "#");
   });
-  
+	//分页 页标单击事件
+	$(".pagination li").click(function(){
+		var index = $(this).children().attr("index");
+		if(index == null)
+			return true;
+		console.log(index);
+		$("input[name='page.pageIndex']").val(index).parents("form").submit();
+	});
+	//表单上次数据显示
+	$("input").each(function(index,element){
+		var ipt = $(element).attr("default");
+		if(ipt!=null && ipt.length>0)
+			$(element).val(ipt);
+	});
 });

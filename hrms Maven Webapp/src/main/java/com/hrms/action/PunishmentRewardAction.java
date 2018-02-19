@@ -4,6 +4,8 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
 import com.hrms.entity.PunishmentReward;
+import com.hrms.entity.Staff;
+import com.hrms.page.Page;
 import com.hrms.scope.ServletScopeAware;
 import com.hrms.util.MenuHelper;
 
@@ -14,6 +16,10 @@ public class PunishmentRewardAction extends ServletScopeAware {
     private String toAction;
     private PunishmentReward puniReward;
     private String itemId;
+    private Staff currStaff;
+    
+    //ÍøÒ³Êý¾Ý
+    private Page page;
     
     public String punishmentReward(){
 
@@ -23,7 +29,14 @@ public class PunishmentRewardAction extends ServletScopeAware {
     	this.toJsp = "jsp/Wages/punishmentReward";
     	return "tojsp";
     }
-    
+
+	public Page getPage() {
+		return page;
+	}
+
+	public void setPage(Page page) {
+		this.page = page;
+	}
 	public String getToJsp() {
 		return toJsp;
 	}

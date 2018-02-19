@@ -1,6 +1,59 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
+  <!-- popup -->
+  <link rel="stylesheet" href="${pageContext.request.contextPath }/semantic/components/dropdown.css">
+  <script type="text/javascript" src="${pageContext.request.contextPath }/semantic/js/dropdown.js"></script>
+  <script type="text/javascript" src="${pageContext.request.contextPath }/semantic/js/transition.js"></script>
+  <script type="text/javascript" src="${pageContext.request.contextPath }/semantic/js/popup.js"></script>
+  <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/semantic/components/transition.css">
+  <link rel="stylesheet" href="${pageContext.request.contextPath }/semantic/components/menu.css">
+  <link rel="stylesheet" href="${pageContext.request.contextPath }/semantic/components/item.css">
+  <link rel="stylesheet" href="${pageContext.request.contextPath }/semantic/components/icon.min.css">
+  <link rel="stylesheet" href="${pageContext.request.contextPath }/semantic/components/popup.css">
+  <link rel="stylesheet" href="${pageContext.request.contextPath }/semantic/components/list.css">
+  <link rel="stylesheet" href="${pageContext.request.contextPath }/semantic/components/grid.css">
+  <!-- <link rel="stylesheet" href="${pageContext.request.contextPath }/semantic/components/divider.css"> -->
+  <link rel="stylesheet" href="${pageContext.request.contextPath }/semantic/components/container.css">
+  <link rel="stylesheet" href="${pageContext.request.contextPath }/semantic/components/site.css">
+  <link rel="stylesheet" href="${pageContext.request.contextPath }/semantic/components/reset.css">
+  <script type="text/javascript">
+    $(function(){
+      /* $('.popup-menu')
+        .popup({
+          popup : $($(this).attr('pmname')),
+          inline     : true,
+          hoverable  : true,
+          position   : 'bottom left',
+          delay: {
+            show: 100,
+            hide: 100
+          }
+        }); */
+      $('.popup-menu').each(function(index,element){
+      	var pmname = $(element).attr('pmname');
+      	/* console.log($(element).text());
+      	console.log($(element).attr('pmname')); */
+      	if(!$(pmname).length>0)
+      		return;
+      	$(element).find("span").removeClass("hide");
+      	$(element).popup({
+          popup : $(pmname),
+          inline     : true,
+          hoverable  : true,
+          position   : 'bottom left',
+          delay: {
+            show: 100,
+            hide: 100
+          }
+        });
+      });
+    });
+  </script>
+  <style>
+  	body{
+  		height: auto;
+  	}
+  </style>
 <!-- Modal -->
   <div class="modal fade" id="nav-search" tabindex="-1" role="dialog" aria-labelledby="searchHeader" style="margin-top:200px;">
     <div class="modal-dialog" role="document">
@@ -106,7 +159,7 @@
 
   <!-- navbar-fixed-top -->
   <nav class="navbar navbar-default navbar-fixed-top">
-    <div class="container" style="width:85%;">
+    <div class="container" style="width:95%;">
       <!-- Brand and toggle get grouped for better mobile display -->
       <div class="navbar-header">
         <button type="button"  class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
@@ -124,10 +177,26 @@
           <%-- <li class="active"><a href="#">首页<span class="sr-only">(current)</span></a></li>
           <li ><a href="#" ${currStaff==null?"data-toggle='modal' data-target='#login'":""}>HRMS</a></li> --%>
           <c:forEach items="${currNavbar!=null?currNavbar:commonNavbar}" var="currNB">
-          	<li class="${currNB.selected?'active':''}"><a href="${currNB.link}" ${currStaff==null&&!currNB.selected&&currNB.id!=1?"data-toggle='modal' data-target='#login'":""} >${currNB.name}</a></li>
+          	<li class="${currNB.selected?'active':''} popup-menu" pmname="<c:if test="${currStaff!=null}">.pm-${currNB.id}</c:if>"><a href="${currNB.link}" ${currStaff==null&&!currNB.selected&&currNB.id!=1?"data-toggle='modal' data-target='#login'":""} >${currNB.name} <span class="caret hide list-menu"></span></a></li>
           </c:forEach>
           <li class=""><a href="#" title="more..."><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></a></li>
         </ul>
+        <!-- semantic popup visible animating scale -->
+        <div class="ui popup bottom left transition pm-2" style="max-width:100%;width:800px;">
+          <div class="ui five column divided grid text-center">
+	         <c:forEach items="${currMenu.listGroups}" var="lg">
+		         <div class="column">
+	                <h4 class="ui header text-primary"><span class="glyphicon ${lg.icon}" aria-hidden="true"></span> ${lg.name}</h4>
+	                <div class="ui link list">
+		                <c:forEach items="${lg.items}" var="item">
+		                  	<a class="item ${item.disabled?'disabled':''} ${item.selected?'active':''}" href="${!item.disabled?item.link:''}"> ${item.name}<c:if test="${item.disabled}"> <span class="glyphicon glyphicon-ban-circle text-danger"></span></c:if> </a>
+			            </c:forEach>
+	                </div>
+	              </div>
+	         </c:forEach>
+          </div>
+        </div>
+        <!-- / semantic popup -->
         <form class="navbar-form navbar-left">
           <!-- 搜索表单 -->
           <div class="form-group">
@@ -152,7 +221,7 @@
 	              <!-- <li><a href="#">Something else here</a></li> -->
 	              <li role="separator" class="divider"></li>
 	              <li><a href="#">个人信息 <i class="info circle icon"></i></a></li>
-	              <li><a href="#">退出登录 <i class="info circle icon"></i></a></li>
+	              <li><a href="${pageContext.request.contextPath }/loginOutInSa.html">退出登录 <i class="info circle icon"></i></a></li>
 	            </ul>
          	</li>
           	</c:when>
@@ -160,7 +229,7 @@
           		<li class="${currPageName=='login'?'active':''}"><a href="toLoginInSa.html">登录</a></li>
           	</c:otherwise>
           </c:choose>
-          <li><a href="#">关于</a></li>
+          <li><a href="#">关于 <span class="glyphicon glyphicon-link"></span></a></li>
         </ul>
       </div><!-- /.navbar-collapse -->
   </div><!-- /.container -->

@@ -1,6 +1,9 @@
 package com.hrms.service.impl;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -69,5 +72,31 @@ public class StaffServiceImpl implements StaffService {
 			// TODO: handle exception
 		}
 		return false;
+	}
+
+	@Override
+	public List<Staff> getStaffsByHql(Staff staff) {
+		// TODO Auto-generated method stub
+		List<String> params = new ArrayList<String>();
+		Map<String, Object> map = new HashMap<String, Object>();
+		if(staff!=null){
+			if(staff.getDepartment().getId()!=null){
+				params.add(" department.id = :did ");
+				map.put("did", staff.getDepartment().getId());
+			}
+			if(staff.getDataDictionaryByTypeId().getId()!=null){
+				params.add(" dataDictionaryByTypeId.id = :tid ");
+				map.put("tid", staff.getDataDictionaryByTypeId().getId());
+			}
+		}
+		StringBuffer param = null;
+		//ºÏ³Éstring
+		for (int i = 0; i < params.size(); i++) {
+			if(i==0)
+				param = new StringBuffer(params.get(i));
+			else
+				param.append(" and "+params.get(i));
+		}
+		return dao.find("from Staff"+(params.size()>0?" where "+param.toString():""),map);
 	}
 }

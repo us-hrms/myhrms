@@ -5,7 +5,10 @@
 
 <struts>
 	<!-- 人事管理的action配置 -->
-    <package name="personnel" extends="struts-default" namespace="/pers">
+    <package name="personnel" extends="my-struts" namespace="/pers">
+    	<global-results>
+    		<result name="toHome" type="redirect">../home.html</result>
+    	</global-results>
     	<action name="*InAaOf*_*" class="attendanceAction" method="{1}">
     		<param name="itemId">{2}</param>
     		<param name="navId">{3}</param>

@@ -26,6 +26,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<!-- Semantic -->
 	<link rel="stylesheet" href="${pageContext.request.contextPath }/semantic/components/table.min.css">
 	<link rel="stylesheet" href="${pageContext.request.contextPath }/semantic/components/icon.min.css">
+  	<link rel="stylesheet" href="${pageContext.request.contextPath }/semantic/components/breadcrumb.css">
 	<!-- nvabar js -->
 	<script type="text/javascript" src="${pageContext.request.contextPath }/customize/js/comm.js"></script>
 	<!-- tool js -->
@@ -50,10 +51,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <body>
   	<jsp:include page="../commons/headerNavbar.jsp" />
 	<!-- 网页中部 -->
-	<div class="container-fluid" style="max-width:96%;">
-  		<jsp:include page="../commons/bodyMenu.jsp" />
-  		<div class="col-md-10 main">
-		    <div class="container-fluid well" id="container-Info">
+	<div class="container-fluid mybody">
+  		<div class="main">
+		    <div class="container-fluid well mycontext" id="container-Info">
 		      <!-- search header -->
 		      <div class="container-fluid" style="border-top:1px dashed #87CEEB;border-bottom:1px dashed #87CEEB;border-radius:20px;padding:20px 0px 10px 0px;max-width:90%;">
 		      <form >
@@ -89,8 +89,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		          </div>
 		        </div>
 		        <div class="form-group form-inline text-center col-md-offset-1 col-md-10">
-		          <div class="form-group col-md-offset-4 col-md-4">
-		            <button class="btn btn-info btn-block"><span style="letter-spacing:30px;">查</span>询</button>
+		          <div class="form-group col-md-offset-3 col-md-3">
+		            <button type="submit" class="btn btn-info btn-block"><span style="letter-spacing:30px;">查</span>询</button>
+		          </div>
+		          <div class="form-group col-md-3">
+		            <button type="reset" class="btn btn-info btn-block"><span style="letter-spacing:30px;">重</span>置</button>
 		          </div>
 		        </div>
 		      </form>
@@ -267,7 +270,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    </div>
 		
 		    <!-- background -->
-		    <div class="container-fluid well" id="container-Edit">
+		    <div class="container-fluid well mycontext" id="container-Edit">
 		      <!-- search header -->
 		      <div class="container-fluid" style="border-top:1px dashed #87CEEB;border-bottom:1px dashed #87CEEB;border-radius:20px;padding:20px 0px 10px 0px;max-width:90%;">
 		      <form >

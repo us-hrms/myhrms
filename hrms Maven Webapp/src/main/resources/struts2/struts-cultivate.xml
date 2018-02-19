@@ -5,7 +5,10 @@
 
 <struts>
 	<!-- 培训计划的action配置区域 -->
-    <package name="cultivate" extends="struts-default" namespace="/cult">
+    <package name="cultivate" extends="my-struts" namespace="/cult">
+    	<global-results>
+    		<result name="toHome" type="redirect">../home.html</result>
+    	</global-results>
     	<action name="*InCaOf*" class="cultivateAction" method="{1}">
     		<param name="itemId">{2}</param>
     		<result name="tojsp">../${toJsp}.jsp</result>

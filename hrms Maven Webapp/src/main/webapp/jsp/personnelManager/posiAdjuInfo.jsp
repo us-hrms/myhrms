@@ -1,4 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -26,6 +27,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<!-- Semantic -->
 	<link rel="stylesheet" href="${pageContext.request.contextPath }/semantic/components/table.min.css">
 	<link rel="stylesheet" href="${pageContext.request.contextPath }/semantic/components/icon.min.css">
+  	<link rel="stylesheet" href="${pageContext.request.contextPath }/semantic/components/breadcrumb.css">
 	<!-- nvabar js -->
 	<script type="text/javascript" src="${pageContext.request.contextPath }/customize/js/comm.js"></script>
 	<!-- tool js -->
@@ -50,10 +52,33 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <body>
   	<jsp:include page="../commons/headerNavbar.jsp" />
 	<!-- 网页中部 -->
-	<div class="container-fluid" style="max-width:96%;">
-  		<jsp:include page="../commons/bodyMenu.jsp" />
-  		<div class="col-md-10 main">
-	      <div class="container-fluid well" id="container-Info">
+	<div class="container-fluid mybody">
+  		<div class=" main">
+	      <div class="container-fluid well mycontext" id="container-Info">
+		    
+	        <!-- breadcrumb -->
+	        <div class="ui large breadcrumb" style="margin:5px 0px 15px 25px;">
+	          <c:forEach items="${currNavbar!=null?currNavbar:commonNavbar}" var="currNB">
+	          	<c:if test="${currNB.selected}">
+	          		<a class="section" href="${currNB.link}">${currNB.name}</a>
+	          	</c:if>
+	          </c:forEach>
+	          <i class="right chevron icon divider"></i>
+	          <c:forEach items="${currMenu.listGroups}" var="lg">
+	            <c:forEach items="${lg.items}" var="item">
+	          		<c:if test="${item.selected}">
+	          			<a class="section" href="${lg.items[0].link}">${lg.name}</a>
+	          			<i class="right chevron icon divider"></i>
+	          			<a class="section" href="${item.link}">${item.name}</a>
+	          		</c:if>
+		        </c:forEach>
+	          </c:forEach>
+	          <i class="right chevron icon divider"></i>
+	          <div class="active section">职称聘任信息</div>
+	        </div>
+	        <!-- end breadcrumb -->
+	        
+	        
 	        <!-- search header -->
 	        <div class="container-fluid" style="border-top:1px dashed #87CEEB;border-bottom:1px dashed #87CEEB;border-radius:20px;padding:20px 0px 10px 0px;max-width:90%;">
 	        <form >
@@ -94,8 +119,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	            </div>
 	          </div>
 	          <div class="form-group form-inline text-center col-md-offset-1 col-md-10">
-	            <div class="form-group col-md-offset-4 col-md-4">
+	            <div class="form-group col-md-offset-3 col-md-3">
 	              <button class="btn btn-info btn-block" data-toggle="modal" data-target="#findResult"><span style="letter-spacing:30px;">查</span>询</button>
+	            </div>
+	            <div class="form-group col-md-3">
+	              <button type="reset" class="btn btn-info btn-block"><span style="letter-spacing:30px;">重</span>置</button>
 	            </div>
 	          </div>
 	        </form>
@@ -272,7 +300,30 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	      </div>
 	
 	      <!-- background -->
-	      <div class="container-fluid well" id="container-Edit">
+	      <div class="container-fluid well mycontext" id="container-Edit">
+		    
+	        <!-- breadcrumb -->
+	        <div class="ui large breadcrumb" style="margin:5px 0px 15px 25px;">
+	          <c:forEach items="${currNavbar!=null?currNavbar:commonNavbar}" var="currNB">
+	          	<c:if test="${currNB.selected}">
+	          		<a class="section" href="${currNB.link}">${currNB.name}</a>
+	          	</c:if>
+	          </c:forEach>
+	          <i class="right chevron icon divider"></i>
+	          <c:forEach items="${currMenu.listGroups}" var="lg">
+	            <c:forEach items="${lg.items}" var="item">
+	          		<c:if test="${item.selected}">
+	          			<a class="section" href="${lg.items[0].link}">${lg.name}</a>
+	          			<i class="right chevron icon divider"></i>
+	          			<a class="section" href="${item.link}">${item.name}</a>
+	          		</c:if>
+		        </c:forEach>
+	          </c:forEach>
+	          <i class="right chevron icon divider"></i>
+	          <div class="active section">编辑聘任记录</div>
+	        </div>
+	        <!-- end breadcrumb -->
+	        
 	        <!-- search header -->
 	        <div class="container-fluid" style="border-top:1px dashed #87CEEB;border-bottom:1px dashed #87CEEB;border-radius:20px;padding:20px 0px 10px 0px;max-width:90%;">
 	        <form >

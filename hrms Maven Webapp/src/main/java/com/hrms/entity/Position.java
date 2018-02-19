@@ -3,6 +3,8 @@ package com.hrms.entity;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.alibaba.fastjson.annotation.JSONField;
+
 /**
  * Position entity. @author MyEclipse Persistence Tools
  */
@@ -14,8 +16,11 @@ public class Position implements java.io.Serializable {
 	private Long id;
 	private Department department;
 	private String name;
+	@JSONField(serialize=false)
 	private Set staffs = new HashSet(0);
+	@JSONField(serialize=false)
 	private Set positionAdjustmentsForAfter = new HashSet(0);
+	@JSONField(serialize=false)
 	private Set positionAdjustmentsForDefore = new HashSet(0);
 
 	// Constructors

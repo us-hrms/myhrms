@@ -3,6 +3,8 @@ package com.hrms.entity;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.alibaba.fastjson.annotation.JSONField;
+
 /**
  * Department entity. @author MyEclipse Persistence Tools
  */
@@ -13,9 +15,13 @@ public class Department implements java.io.Serializable {
 
 	private Long id;
 	private String name;
+	@JSONField(serialize=false)
 	private Set staffMobilizationsForAfter = new HashSet(0);
+	@JSONField(serialize=false)
 	private Set staffMobilizationsForDefore = new HashSet(0);
+	@JSONField(serialize=false)
 	private Set positions = new HashSet(0);
+	@JSONField(serialize=false)
 	private Set staffs = new HashSet(0);
 
 	// Constructors
@@ -24,6 +30,9 @@ public class Department implements java.io.Serializable {
 	public Department() {
 	}
 
+	public Department(Long id) {
+		this.id = id;
+	}
 	/** minimal constructor */
 	public Department(String name) {
 		this.name = name;

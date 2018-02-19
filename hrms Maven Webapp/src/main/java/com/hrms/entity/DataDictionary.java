@@ -3,6 +3,8 @@ package com.hrms.entity;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.alibaba.fastjson.annotation.JSONField;
+
 /**
  * DataDictionary entity. @author MyEclipse Persistence Tools
  */
@@ -15,22 +17,36 @@ public class DataDictionary implements java.io.Serializable {
 	private String tableColumn;
 	private String value;
 	private String discription;
+	@JSONField(serialize=false)
 	private Set staffMobilizations = new HashSet(0);
+	@JSONField(serialize=false)
 	private Set staffsForEducationId = new HashSet(0);
+	@JSONField(serialize=false)
 	private Set staffsForAcademicdegreeId = new HashSet(0);
+	@JSONField(serialize=false)
 	private Set cultivateRecords = new HashSet(0);
+	@JSONField(serialize=false)
 	private Set cultivateStaffs = new HashSet(0);
+	@JSONField(serialize=false)
 	private Set quitStaffs = new HashSet(0);
+	@JSONField(serialize=false)
 	private Set holidaies = new HashSet(0);
+	@JSONField(serialize=false)
 	private Set staffsForStatus = new HashSet(0);
+	@JSONField(serialize=false)
 	private Set positionAdjustments = new HashSet(0);
+	@JSONField(serialize=false)
 	private Set attendances = new HashSet(0);
+	@JSONField(serialize=false)
 	private Set staffsForTypeId = new HashSet(0);
 
 	// Constructors
 
 	/** default constructor */
 	public DataDictionary() {
+	}
+	public DataDictionary(Long id) {
+		this.id = id;
 	}
 
 	/** minimal constructor */

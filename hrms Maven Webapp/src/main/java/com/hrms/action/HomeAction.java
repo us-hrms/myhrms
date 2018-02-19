@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import com.hrms.entity.Staff;
+import com.hrms.page.Page;
 import com.hrms.scope.ServletScopeAware;
 import com.hrms.xml.entity.Nav;
 
@@ -15,6 +17,10 @@ public class HomeAction extends ServletScopeAware{
     private String toJsp;
     private String toAction;
     private Long navId;
+    private Staff currStaff;
+    
+    //ÍøÒ³Êý¾Ý
+    private Page page;
 	
 	public String toHome(){
     	List<Nav> currNav = (List<Nav>) session.getAttribute("currNavbar");
@@ -26,6 +32,13 @@ public class HomeAction extends ServletScopeAware{
 		return "success";
 	}
 
+	public Page getPage() {
+		return page;
+	}
+
+	public void setPage(Page page) {
+		this.page = page;
+	}
 	public String getToJsp() {
 		return toJsp;
 	}

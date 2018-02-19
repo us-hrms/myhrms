@@ -4,6 +4,8 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
 import com.hrms.entity.PositionAdjustment;
+import com.hrms.entity.Staff;
+import com.hrms.page.Page;
 import com.hrms.scope.ServletScopeAware;
 import com.hrms.util.MenuHelper;
 
@@ -14,6 +16,10 @@ public class PositionAdjustmentAction extends ServletScopeAware {
     private String toAction;
     private PositionAdjustment posiAdju;
     private String itemId;
+    private Staff currStaff;
+    
+    //网页数据
+    private Page page;
     
     public String posiAdju(){
 
@@ -23,7 +29,14 @@ public class PositionAdjustmentAction extends ServletScopeAware {
     	toJsp = "jsp/personnelManager/posiAdju";
     	return "tojsp";
     }
-    
+
+	public Page getPage() {
+		return page;
+	}
+
+	public void setPage(Page page) {
+		this.page = page;
+	}
     public String posiAdjuInfo(){
 
 		//设置菜单选项
