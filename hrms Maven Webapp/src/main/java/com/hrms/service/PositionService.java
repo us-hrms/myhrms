@@ -30,6 +30,7 @@ public interface PositionService {
 	 * @return
 	 */
 	List<Position> getPositions();
+	List<Position> getPositions(Page page);
 	
 	/**
 	 * 根据条件查询职位

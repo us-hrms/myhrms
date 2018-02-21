@@ -3,14 +3,19 @@
     target  触发事件的目标
     hidden 要影藏的控件
     show  要显示的控件
+    500 100
 */
 function mySwitch(hidden,show){
   $(hidden).animate({width:'70px',height:'70px',marginTop:'200px',borderRadius:'50%'},800,function(){
-    $(show).css('display','block').animate({width:'70px',height:'70px',marginTop:'-500px',borderRadius:'50%'},100)
-      .animate({width:'70px',height:'70px',marginTop:'200px',borderRadius:'50%'},1000)
-      .animate({width:'100%',height:'100%',marginTop:'0px',borderRadius:'4px'},1000);
+	  $(show).animate({width:'70px',height:'70px',marginTop:'-200px',borderRadius:'50%'},100);
   })
-  .animate({width:'50px',height:'50px',marginTop:'-100px',borderRadius:'50%'},600,function(){$(this).hide();});
+  .animate({width:'50px',height:'50px',marginTop:'-200px',borderRadius:'50%'},600,function(){$(this).hide();});
+  
+  setTimeout(function() {
+      $(show).show()
+      .animate({width:'70px',height:'70px',marginTop:'200px',borderRadius:'50%'},800)
+      .animate({width:'100%',height:'100%',marginTop:'0px',borderRadius:'4px'},800);
+  }, 1100)
 }
 //原型
 // $(function(){

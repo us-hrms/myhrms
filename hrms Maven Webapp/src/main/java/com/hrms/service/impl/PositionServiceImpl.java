@@ -65,7 +65,24 @@ public class PositionServiceImpl implements PositionService {
 	@Override
 	public List<Position> getPositions(Position position) {
 		// TODO Auto-generated method stub
-		return dao.find(position);
+		List<String> params = new ArrayList<String>();
+		Map<String, Object> map = new HashMap<String, Object>();
+		if(position != null){
+			if(position.getName() != null){
+				params.add(" name like :name ");
+				map.put("name", "%"+position.getName()+"%");
+			}
+			if(position.getDepartment()!=null && position.getDepartment().getId()!=null && position.getDepartment().getId() != -1){
+				params.add(" department.id = :id ");
+				map.put("id", position.getDepartment().getId());
+			}
+		}
+		//合成条件语句
+		StringBuffer param = HQLHelper.toHqlWhere(params);
+		if(params.size()>0)
+			return dao.find("from Position where "+param.toString(), map);
+		else
+			return dao.find(position);
 	}
 
 	@Override
@@ -84,15 +101,22 @@ public class PositionServiceImpl implements PositionService {
 				params.add(" name like :name ");
 				map.put("name", "%"+position.getName()+"%");
 			}
-			if(position.getDepartment()!=null && position.getDepartment().getId()!=null){
+			if(position.getDepartment()!=null && position.getDepartment().getId()!=null && position.getDepartment().getId() != -1){
 				params.add(" department.id = :id ");
-				map.put("id", position.getId());
+				map.put("id", position.getDepartment().getId());
 			}
 		}
 		//合成条件语句
 		StringBuffer param = HQLHelper.toHqlWhere(params);
-		dao.find("from Position "+(params.size()>0?" where "+param.toString():""), map,page);
-		return null;
+		return dao.find("from Position "+(params.size()>0?" where "+param.toString():""), map,page);
+	}
+
+	@Override
+	public List<Position> getPositions(Page page) {
+		// TODO Auto-generated method stub
+		if(page == null)
+			page = new Page();
+		return dao.find(new Position(),page);
 	} 
     
 	

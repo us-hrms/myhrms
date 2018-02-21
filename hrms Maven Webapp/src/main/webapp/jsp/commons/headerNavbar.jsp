@@ -55,6 +55,7 @@
   	}
   </style>
 <!-- Modal -->
+  <span class="hide" id="constant-contextPath" >${pageContext.request.contextPath}</span>
   <div class="modal fade" id="nav-search" tabindex="-1" role="dialog" aria-labelledby="searchHeader" style="margin-top:200px;">
     <div class="modal-dialog" role="document">
       <div class="modal-content">

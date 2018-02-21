@@ -9,8 +9,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.hrms.dao.Dao;
+import com.hrms.entity.Department;
+import com.hrms.entity.Position;
 import com.hrms.entity.Staff;
+import com.hrms.page.Page;
 import com.hrms.service.StaffService;
+import com.hrms.util.HQLHelper;
 import com.hrms.util.MD5Util;
 
 @Service
@@ -22,16 +26,18 @@ public class StaffServiceImpl implements StaffService {
 	@Override
 	public Staff login(Staff staff) {
 		// TODO Auto-generated method stub
-		try {
-			//MD5加密
-			staff.setPassword(MD5Util.getMD5(staff.getPassword()));
-			List<Staff> finds = dao.find(staff);
-			//判断是否为空
-			if(!finds.isEmpty())
-				return finds.get(0);
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
+		List<String> params = new ArrayList<String>();
+		Map<String, Object> map = new HashMap<String, Object>();
+		//MD5加密
+		staff.setPassword(MD5Util.getMD5(staff.getPassword()));
+		params.add(" no = :no ");
+		params.add(" password = :password ");
+		params.add(" dataDictionaryByStatus.id != 14 ");
+		StringBuffer param = HQLHelper.toHqlWhere(params);
+		List<Staff> finds = dao.find("from Staff where "+param.toString(),staff);
+		//判断是否为空
+		if(!finds.isEmpty())
+			return finds.get(0);
 		return null;
 	}
 
@@ -89,14 +95,52 @@ public class StaffServiceImpl implements StaffService {
 				map.put("tid", staff.getDataDictionaryByTypeId().getId());
 			}
 		}
-		StringBuffer param = null;
-		//合成string
-		for (int i = 0; i < params.size(); i++) {
-			if(i==0)
-				param = new StringBuffer(params.get(i));
-			else
-				param.append(" and "+params.get(i));
-		}
+		StringBuffer param = HQLHelper.toHqlWhere(params);
 		return dao.find("from Staff"+(params.size()>0?" where "+param.toString():""),map);
+	}
+
+	@Override
+	public List<Staff> getStaffs(Page page) {
+		// TODO Auto-generated method stub
+		return dao.find("from Staff",page);
+	}
+
+	@Override
+	public List<Staff> getStaffs(Staff staff, Page page) {
+		List<String> params = new ArrayList<String>();//存储hql条件语句
+		Map<String, Object> map = new HashMap<String, Object>();//存储hql中要填入的值
+		//动态参数
+		if(staff != null){
+			//姓名
+			if(staff.getName() != null){
+				params.add(" name like :sname ");
+				map.put("sname", "%"+staff.getName()+"%");
+			}
+			//工号
+			if(staff.getNo() != null){
+				params.add(" no like :sno ");
+				map.put("sno", "%"+staff.getNo()+"%");
+			}
+			//状态
+			if(staff.getDataDictionaryByStatus().getId() != null && staff.getDataDictionaryByStatus().getId() != -1){
+				params.add(" dataDictionaryByStatus.id = :sdid ");
+				map.put("sdid", staff.getDataDictionaryByStatus().getId());
+			}
+			Department department = staff.getDepartment();
+			//部门id
+			if(department != null && department.getId() != null && department.getId() != -1){
+				params.add(" department.id = :did ");
+				map.put("did", department.getId());
+			}
+			Position position = staff.getPosition();
+			//职位id
+			if(position != null && position.getId() != null && position.getId() != -1){
+				params.add(" position.id = :pid ");
+				map.put("pid", position.getId());
+			}
+		}
+		StringBuffer param = HQLHelper.toHqlWhere(params);
+
+		return dao.find("from Staff "+(params.size()>0?" where " + param.toString():""), map, page);
 	}
 }

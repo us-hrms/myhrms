@@ -14,16 +14,17 @@ import com.hrms.service.StaffService;
 import com.hrms.util.MD5Util;
 
 public class StaffPWToMD5 {
-static AttendanceService as;
+	static AttendanceService as;
 
 	static StaffService staffService;
 	
-//	@BeforeClass
+	@BeforeClass
 	public static void inital(){
 		ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
 		staffService = context.getBean(StaffService.class);
 	}
 	
+	@Test
 	public void toMd5(){
 		List<Staff> list = staffService.getStaffs();
 		boolean result =true;

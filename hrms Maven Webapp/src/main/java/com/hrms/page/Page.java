@@ -50,6 +50,8 @@ public class Page implements Serializable {
 	 */
 	public void setPageCountBySize(Integer size) {
 		this.pageCount = size%pageSize==0?size/pageSize:size/pageSize+1;
+		if(this.pageCount < this.pageIndex)
+			this.pageIndex = 1;
 	}
 	@Override
 	public String toString() {

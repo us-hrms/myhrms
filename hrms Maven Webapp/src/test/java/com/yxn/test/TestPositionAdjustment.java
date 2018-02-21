@@ -21,7 +21,7 @@ public class TestPositionAdjustment {
     }
 //    @Test
  	public void getDepartments(){
- 		List<PositionAdjustment> list = pas.getPositionAdjustment();
+ 		List<PositionAdjustment> list = pas.getPositionAdjustments();
  		for (PositionAdjustment positionAdjustment : list) {
  			System.out.println(positionAdjustment.getId());
  		}

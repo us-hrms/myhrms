@@ -12,7 +12,7 @@ public class PositionAdjustment implements java.io.Serializable {
 
 	private Long id;
 	private DataDictionary dataDictionary;
-	private Position positionByDefore;
+	private Position positionByBefore;
 	private Position positionByAfter;
 	private Staff staff;
 	private Date date;
@@ -29,7 +29,7 @@ public class PositionAdjustment implements java.io.Serializable {
 			Position positionByDefore, Position positionByAfter, Staff staff,
 			Date date) {
 		this.dataDictionary = dataDictionary;
-		this.positionByDefore = positionByDefore;
+		this.positionByBefore = positionByDefore;
 		this.positionByAfter = positionByAfter;
 		this.staff = staff;
 		this.date = date;
@@ -40,7 +40,7 @@ public class PositionAdjustment implements java.io.Serializable {
 			Position positionByDefore, Position positionByAfter, Staff staff,
 			Date date, String discription) {
 		this.dataDictionary = dataDictionary;
-		this.positionByDefore = positionByDefore;
+		this.positionByBefore = positionByDefore;
 		this.positionByAfter = positionByAfter;
 		this.staff = staff;
 		this.date = date;
@@ -65,12 +65,12 @@ public class PositionAdjustment implements java.io.Serializable {
 		this.dataDictionary = dataDictionary;
 	}
 
-	public Position getPositionByDefore() {
-		return this.positionByDefore;
+	public Position getPositionByBefore() {
+		return this.positionByBefore;
 	}
 
-	public void setPositionByDefore(Position positionByDefore) {
-		this.positionByDefore = positionByDefore;
+	public void setPositionByBefore(Position positionByBefore) {
+		this.positionByBefore = positionByBefore;
 	}
 
 	public Position getPositionByAfter() {

@@ -1,5 +1,6 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -44,6 +45,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         mySwitch("#container-Info","#container-Edit");
         //tomcat 里需要 否则会回到根目录的#页面
         return false;
+      }); 
+      //部门下拉框改变事件
+      $("[name='quitStaff.staff.department.id']").change(function(){
+      	/* 异步获得职位 */
+       	var did = $(this).val();
+       	position(did,function(data){
+       		var target = $("[name='quitStaff.staff.position.id']");
+       		$(target).empty().append("<option value='-1'>全部</option>");
+	 		for(var idx in data){
+	 			var posi = data[idx];
+	  			target.append("<option value='"+posi.id+"'>"+posi.name+"</option>");
+	  		}
+       	});
       });
     });
  	</script>
@@ -81,52 +95,83 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	        
 	        <!-- search header -->
 	        <div class="container-fluid" style="border-top:1px dashed #87CEEB;border-bottom:1px dashed #87CEEB;border-radius:20px;padding:20px 0px 10px 0px;max-width:90%;">
-	        <form >
+	        <form method="post" action="${pageContext.request.contextPath }/pers/findQuitStaffInQsaOf.html">
+	      	<!-- 页标 -->
+	      	<input type="hidden" name="page.pageIndex" value="${page.pageIndex}">
 	          <div class="form-group form-inline text-center col-md-offset-1 col-md-10">
 	            <div class="form-group col-md-6">
 	                <label class="control-label">员 工 工 号：</label>
-	                <input type="text" class="form-control" placeholder="Position No">
+	                <input type="text" class="form-control" placeholder="Position No" name="quitStaff.staff.no" default="${quitStaff.staff.no }">
 	            </div>
 	            <div class="form-group col-md-6">
 	                <label class="control-label">员 工 名 称：</label>
-	                <input type="text" class="form-control" placeholder="Position Like Name">
+	                <input type="text" class="form-control" placeholder="Position Like Name" name="quitStaff.staff.name" default="${quitStaff.staff.name }">
 	            </div>
 	          </div>
 	          <div class="form-group form-inline text-center col-md-offset-1 col-md-10">
 	            <div class="form-group col-md-4">
-	                <label class="control-label">离 职 部 门：</label>
-	                <select class="form-control" style="width:196px;">
+	                <label class="control-label">离 职 时 部 门：</label>
+	                <select class="form-control" style="width:196px;" name="quitStaff.staff.department.id" sele="${quitStaff.staff.department.id }">
 	                  <option value="-1">全部</option>
-	                  <option>部门1</option>
-	                  <option>部门2</option>
-	                  <option>部门3</option>
-	                  <option>部门4</option>
 	                </select>
 	            </div>
+	            <script type="text/javascript">
+	            	department(function(data){
+	            		var target = $("[name='quitStaff.staff.department.id']");
+				   		for(var idx in data){
+				   			var dept = data[idx];
+				    		target.append("<option value='"+dept.id+"'>"+dept.name+"</option>");
+				    	}
+				    	var sele = $(target).attr("sele");
+				      	if(sele!= null && sele.length > 0)
+				       		$(target).val(sele).change();
+	            	});
+	            </script>
 	            <div class="form-group col-md-4">
-	                <label class="control-label">离 职 职 位：</label>
-	                <select class="form-control" style="width:196px;">
+	                <label class="control-label">离 职 时 职 位：</label>
+	                <select class="form-control" style="width:196px;" name="quitStaff.staff.position.id" sele="${quitStaff.staff.position.id }">
 	                  <option value="-1">全部</option>
-	                  <option>职位1</option>
-	                  <option>职位2</option>
-	                  <option>职位3</option>
-	                  <option>职位4</option>
 	                </select>
 	            </div>
+	            <script type="text/javascript">
+	            	/* 异步获得职位 */
+	            	var did = $("[name='quitStaff.staff.department.id']").attr("sele");
+	            	position(did,function(data){
+	            		var target = $("[name='quitStaff.staff.position.id']");
+				   		for(var idx in data){
+				   			var posi = data[idx];
+				    		target.append("<option value='"+posi.id+"'>"+posi.name+"</option>");
+				    	}
+				    	var sele = $(target).attr("sele");
+				      	if(sele!= null && sele.length > 0)
+				       		$(target).val(sele).change();
+	            	});
+	            </script>
 	            <div class="form-group col-md-4">
 	                <label class="control-label">离 职 类 型：</label>
-	                <select class="form-control" style="width:196px;">
+	                <select class="form-control" style="width:196px;" name="quitStaff.dataDictionary.id" sele="${quitStaff.dataDictionary.id }">
 	                  <option value="-1">全部</option>
-	                  <option>类型1</option>
-	                  <option>类型2</option>
-	                  <option>类型3</option>
-	                  <option>类型4</option>
 	                </select>
 	            </div>
+		          <!-- 异步加载字典数据 -->
+		          <script type="text/javascript">
+		          		//异步加载字典数据方法
+		          		dataDictionary("QUIT_TYPE",function(data){
+		          			var target = $("[name='quitStaff.dataDictionary.id']");
+	        				for(var dd in data){
+	        					var val = data[dd];
+	        					$(target).append("<option value='"+val.id+"'>"+val.value+"</option>");
+	        				}
+	        				var sele = $(target).attr("sele");
+	        				if(sele!= null && sele.length > 0)
+	        					$(target).val(sele).change();
+	          			});
+		          </script>
 	          </div>
 	          <div class="form-group form-inline text-center col-md-offset-1 col-md-10">
 	            <div class="form-group col-md-offset-3 col-md-3">
-	              <button class="btn btn-info btn-block" data-toggle="modal" data-target="#findResult"><span style="letter-spacing:30px;">查</span>询</button>
+	            <!-- data-toggle="modal" data-target="#findResult" -->
+	              <button class="btn btn-info btn-block" ><span style="letter-spacing:30px;">查</span>询</button>
 	            </div>
 		          <div class="form-group col-md-3">
 		            <button type="reset" class="btn btn-info btn-block"><span style="letter-spacing:30px;">重</span>置</button>
@@ -151,7 +196,21 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	              </tr>
 	            </thead>
 	            <tbody>
-	              <tr>
+	            	<c:forEach items="${quitStaffs }" var="tqs">
+	            	 <tr>
+		                <td>${tqs.staff.no }</td>
+		                <td>${tqs.staff.name }</td>
+		                <td><fmt:formatDate pattern="yyyy年MM月dd日  HH:mm" value="${tqs.time }" /></td>
+		                <td>${tqs.reason }</td>
+		                <td>${tqs.dataDictionary.value }</td>
+		                <td class="center aligned">
+		                  <a href="#" title="查看"><i class="unhide icon text-info"></i></a>
+		                  <a href="#" title="修改"><i class="edit icon text-success"></i></a>
+		                  <a href="#" title="删除"><i class="trash outline icon text-danger"></i></a>
+		                </td>
+		              </tr>
+	            	</c:forEach>
+	              <!-- <tr>
 	                <td>1</td>
 	                <td>No Action</td>
 	                <td>None</td>
@@ -162,107 +221,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	                  <a href="#" title="修改"><i class="edit icon text-success"></i></a>
 	                  <a href="#" title="删除"><i class="trash outline icon text-danger"></i></a>
 	                </td>
-	              </tr>
-	              <tr>
-	                <td>2</td>
-	                <td>Approved</td>
-	                <td >Requires call</td>
-	                <td>None</td>
-	                <td>None</td>
-	                <td class="center aligned disabled">
-	                  <a href="#" title="查看"><i class="unhide icon text-info"></i></a>
-	                  <a href="#" title="修改"><i class="edit icon text-success"></i></a>
-	                  <a href="#" title="删除"><i class="trash outline icon text-danger"></i></a>
-	                </td>
-	              </tr>
-	              <tr>
-	                <td>3</td>
-	                <td>Denied</td>
-	                <td >None</td>
-	                <td>None</td>
-	                <td>None</td>
-	                <td class="center aligned">
-	                  <a href="#" title="查看"><i class="unhide icon text-info"></i></a>
-	                  <a href="#" title="修改"><i class="edit icon text-success"></i></a>
-	                  <a href="#" title="删除"><i class="trash outline icon text-danger"></i></a>
-	                </td>
-	              </tr>
-	              <tr>
-	                <td>4</td>
-	                <td>No Action</td>
-	                <td >None</td>
-	                <td>None</td>
-	                <td>None</td>
-	                <td class="center aligned">
-	                  <a href="#" title="查看"><i class="unhide icon text-info"></i></a>
-	                  <a href="#" title="修改"><i class="edit icon text-success"></i></a>
-	                  <a href="#" title="删除"><i class="trash outline icon text-danger"></i></a>
-	                </td>
-	              </tr>
-	              <tr>
-	                <td>5</td>
-	                <td>Approved</td>
-	                <td >Requires call</td>
-	                <td>None</td>
-	                <td>None</td>
-	                <td class="center aligned">
-	                  <a href="#" title="查看"><i class="unhide icon text-info"></i></a>
-	                  <a href="#" title="修改"><i class="edit icon text-success"></i></a>
-	                  <a href="#" title="删除"><i class="trash outline icon text-danger"></i></a>
-	                </td>
-	              </tr>
-	              <tr>
-	                <td>6</td>
-	                <td>Denied</td>
-	                <td >None</td>
-	                <td>None</td>
-	                <td>None</td>
-	                <td class="center aligned">
-	                  <a href="#" title="查看"><i class="unhide icon text-info"></i></a>
-	                  <a href="#" title="修改"><i class="edit icon text-success"></i></a>
-	                  <a href="#" title="删除"><i class="trash outline icon text-danger"></i></a>
-	                </td>
-	              </tr>
-	              <tr>
-	                <td>7</td>
-	                <td>Denied</td>
-	                <td >None</td>
-	                <td>None</td>
-	                <td>None</td>
-	                <td class="center aligned">
-	                  <a href="#" title="查看"><i class="unhide icon text-info"></i></a>
-	                  <a href="#" title="修改"><i class="edit icon text-success"></i></a>
-	                  <a href="#" title="删除"><i class="trash outline icon text-danger"></i></a>
-	                </td>
-	              </tr>
-	              <tr>
-	                <td>8</td>
-	                <td>Denied</td>
-	                <td >None</td>
-	                <td>None</td>
-	                <td>None</td>
-	                <td class="center aligned">
-	                  <a href="#" title="查看"><i class="unhide icon text-info"></i></a>
-	                  <a href="#" title="修改"><i class="edit icon text-success"></i></a>
-	                  <a href="#" title="删除"><i class="trash outline icon text-danger"></i></a>
-	                </td>
-	              </tr>
-	              <tr>
-	                <td>9</td>
-	                <td>Denied</td>
-	                <td >None</td>
-	                <td>None</td>
-	                <td>None</td>
-	                <td class="center aligned">
-	                  <a href="#" title="查看"><i class="unhide icon text-info"></i></a>
-	                  <a href="#" title="修改"><i class="edit icon text-success"></i></a>
-	                  <a href="#" title="删除"><i class="trash outline icon text-danger"></i></a>
-	                </td>
-	              </tr>
+	              </tr> -->
+	              
 	            </tbody>
 	          </table>
 	          <!-- 查询 Model -->
-	          <div class="modal fade" id="findResult" tabindex="-1" role="dialog" aria-labelledby="findResultModel" style="margin-top:230px;">
+	          <!-- <div class="modal fade" id="findResult" tabindex="-1" role="dialog" aria-labelledby="findResultModel" style="margin-top:230px;">
 	            <div class="modal-dialog" role="document">
 	              <div class="modal-content">
 	                <div class="modal-header">
@@ -270,7 +234,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	                  <h4 class="modal-title" id="findResultModel">查询结果</h4>
 	                </div>
 	                <div class="modal-body"  style="padding:30px 0px;">
-	                  <!-- loading -->
+	                  loading
 	                  <div class="transition-loader">
 	                    <div class="transition-loader-inner">
 	                      <label></label>
@@ -288,19 +252,66 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	                </div>
 	              </div>
 	            </div>
-	          </div>
-	          <!-- 分页 -->
-	          <div class="text-center">
-	            <ul class="pagination">
-	              <li><a href="#">上一页</a></li>
-	              <li class="active"><a>1</a></li>
-	              <li><a href="#">2</a></li>
-	              <li><a href="#">3</a></li>
-	              <li><a href="#">4</a></li>
-	              <li><a href="#">5</a></li>
-	              <li><a href="#">下一页</a></li>
-	            </ul>
-	          </div>
+	          </div> -->
+	           <!-- 分页 -->
+		      <!-- 设置页标前后显示的页数 -->
+		      <c:set var="count" value="2" />
+		      <div class="text-center">
+		        <ul class="pagination">
+		        	<c:if test="${page.pageIndex > 1}">
+		            	<li><a index="${page.pageIndex-1}">上一页</a></li>
+		            </c:if>
+		            <!-- 页前页标 -->
+		            <c:choose>
+		            	<c:when test="${page.pageIndex - count > 0}">
+		            		<c:if test="${page.pageIndex - count > 1}">
+					            <li><a index="1">1</a></li>
+					            <li><a >···</a></li>
+		            		</c:if>
+			            	<c:forEach var="index" begin="${page.pageIndex - count}" end="${page.pageIndex - 1}" >
+			           			<li><a index="${index}">${index}</a></li>
+			            	</c:forEach>
+		            	</c:when>
+		            	<c:when test="${page.pageIndex - count == 0}">
+			            	<c:forEach var="index" begin="${page.pageIndex - count + 1}" end="${page.pageIndex - 1}" >
+			           			<li><a index="${index}">${index}</a></li>
+			            	</c:forEach>
+		            	</c:when>
+		            	<c:when test="${page.pageIndex - count < 0 && page.pageIndex - 1 > 1}">
+			            	<c:forEach var="index" begin="1" end="${page.pageIndex - 1}" >
+			           			<li><a index="${index}">${index}</a></li>
+			            	</c:forEach>
+		            	</c:when>
+		            </c:choose>
+		            <!-- 当前页 -->
+		            <li class="active"><a>${page.pageIndex}</a></li>
+		            <!-- 页后页标 -->
+		            <c:choose>
+		            	<c:when test="${page.pageIndex + count < page.pageCount}">
+		            		<c:forEach var="index" begin="${page.pageIndex +  1}" end="${page.pageIndex + count}" >
+			           			<li><a index="${index}">${index}</a></li>
+			            	</c:forEach>
+				            <li><a >···</a></li>
+				            <li><a index="${page.pageCount}">${page.pageCount}</a></li>
+		            	</c:when>
+		            	<c:when test="${page.pageIndex + count == page.pageCount}">
+		            		<c:forEach var="index" begin="${page.pageIndex +  1}" end="${page.pageCount}" >
+			           			<li><a index="${index}">${index}</a></li>
+			            	</c:forEach>
+		            	</c:when>
+		            	<c:when test="${page.pageIndex + count > page.pageCount && page.pageIndex + 1 <= page.pageCount}">
+		            		<c:forEach var="index" begin="${page.pageIndex +  1}" end="${page.pageCount}" >
+			           			<li><a index="${index}">${index}</a></li>
+			            	</c:forEach>
+		            	</c:when>
+		            </c:choose>
+		            <!-- 下一页 -->
+		            <c:if test="${page.pageIndex < page.pageCount}">
+		           		<li><a index="${page.pageIndex+1}">下一页</a></li>
+		            </c:if>
+		          </ul>
+		      </div>
+		      <!-- end 分页  -->
 	        </div>
 	      </div>
 	

@@ -2,8 +2,8 @@ package com.hrms.service;
 
 import java.util.List;
 
-import com.hrms.entity.Department;
 import com.hrms.entity.Staff;
+import com.hrms.page.Page;
 
 public interface StaffService {
 	
@@ -36,6 +36,7 @@ public interface StaffService {
 	 * @return 员工集合
 	 */
 	List<Staff> getStaffs();
+	List<Staff> getStaffs(Page page);
 	
 
 	/**
@@ -44,6 +45,7 @@ public interface StaffService {
 	 * @return 员工集合
 	 */
 	List<Staff> getStaffs(Staff staff);
+	List<Staff> getStaffs(Staff staff,Page page);
 
 	List<Staff> getStaffsByHql(Staff staff);
 	

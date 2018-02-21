@@ -16,6 +16,8 @@ public class MenuHelper {
 	 * @param itemId
 	 */
 	public static void changeMenu(HttpSession session,String itemId){
+		if(itemId == null)
+			return;
 		Menu currMenu = (Menu) session.getAttribute("currMenu");//拿到当前menu
 		//如果当前menu为空 重新获得
 		if(currMenu == null){

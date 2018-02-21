@@ -1,5 +1,8 @@
 package com.hrms.action;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
@@ -7,11 +10,14 @@ import com.hrms.entity.Holiday;
 import com.hrms.entity.Staff;
 import com.hrms.page.Page;
 import com.hrms.scope.ServletScopeAware;
+import com.hrms.service.HolidayService;
 import com.hrms.util.MenuHelper;
 
 @Controller
 @Scope("prototype")
 public class HolidayAction extends ServletScopeAware {
+	@Autowired
+	private HolidayService holidayService;
     private String toJsp;
     private String toAction;
     private Holiday holiday;
@@ -20,15 +26,34 @@ public class HolidayAction extends ServletScopeAware {
     
     //网页数据
     private Page page;
+    private List<Holiday> holidays;
     
     public String holiday(){
-
+    	if(page == null)
+    		page = new Page();
+    	this.holidays = holidayService.getHolidays(page);
 		//设置菜单选项
 		if(itemId != null)
 			MenuHelper.changeMenu(session, itemId);
     	toJsp = "jsp/personnelManager/holiday";
     	return "tojsp";
     }
+    
+    public String findHoliday(){
+    	if(page == null)
+    		page = new Page();
+    	this.holidays = holidayService.getHolidays(holiday,page);
+    	toJsp = "jsp/personnelManager/holiday";
+    	return "tojsp";
+    }
+
+	public List<Holiday> getHolidays() {
+		return holidays;
+	}
+
+	public void setHolidays(List<Holiday> holidays) {
+		this.holidays = holidays;
+	}
 
 	public Page getPage() {
 		return page;

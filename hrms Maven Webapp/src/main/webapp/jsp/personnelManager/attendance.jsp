@@ -144,7 +144,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	        	<tr>
 		            <td>${atte.staff.no}</td>
 		            <td>${atte.staff.name}</td>
-		            <td>${atte.time}</td>
+		            <td><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${atte.time}" /></td>
 		            <c:choose>
 		            	<c:when test="${atte.dataDictionary.id == 27}">
 			            	<td class="info">${atte.dataDictionary.value}</td>

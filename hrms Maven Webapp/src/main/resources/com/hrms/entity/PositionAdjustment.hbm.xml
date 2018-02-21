@@ -15,8 +15,8 @@
                 <comment>外键 调整类型 来自数据字典表</comment>
             </column>
         </many-to-one>
-        <many-to-one name="positionByDefore" class="com.hrms.entity.Position" fetch="select">
-            <column name="Defore" not-null="true">
+        <many-to-one name="positionByBefore" class="com.hrms.entity.Position" fetch="select">
+            <column name="Before" not-null="true">
                 <comment>外键 调整前职位编号 来自职位表</comment>
             </column>
         </many-to-one>

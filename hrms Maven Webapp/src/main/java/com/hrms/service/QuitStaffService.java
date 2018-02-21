@@ -3,6 +3,7 @@ package com.hrms.service;
 import java.util.List;
 
 import com.hrms.entity.QuitStaff;
+import com.hrms.page.Page;
 
 public interface QuitStaffService {
       
@@ -29,12 +30,14 @@ public interface QuitStaffService {
 	 * @return
 	 */
 	List<QuitStaff> getQuitStaffs();
+	List<QuitStaff> getQuitStaffs(Page page);
 	/**
 	 * 根据条件查询离职人员
 	 * @param quitStaff
 	 * @return
 	 */
 	List<QuitStaff> getQuitStaffs(QuitStaff quitStaff);
+	List<QuitStaff> getQuitStaffs(QuitStaff quitStaff,Page page);
 	/**
 	 * 根据id查询单个离职人员
 	 * @param id

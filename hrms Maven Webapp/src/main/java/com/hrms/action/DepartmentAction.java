@@ -6,12 +6,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import com.alibaba.fastjson.JSONObject;
 import com.hrms.entity.Department;
 import com.hrms.entity.Staff;
 import com.hrms.page.Page;
 import com.hrms.scope.ServletScopeAware;
 import com.hrms.service.DepartmentService;
 import com.hrms.util.MenuHelper;
+import com.hrms.util.PrintWriteUtil;
 
 @Controller
 @Scope("prototype")
@@ -48,6 +50,13 @@ public class DepartmentAction extends ServletScopeAware {
     	deptList = departmentService.getDepartments(department,count,page);
     	toJsp = "jsp/personnelManager/department";
     	return "tojsp";
+    }
+    
+    public String ajaxDepts(){
+    	deptList = departmentService.getDepartments();
+    	String info = JSONObject.toJSONString(deptList);
+    	PrintWriteUtil.write(response, info);
+    	return null;
     }
     
 	public Department getDepartment() {

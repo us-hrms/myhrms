@@ -2,7 +2,7 @@
 //异步加载字典数据
 function dataDictionary(tableCloumn,fun){
 	$.ajax({
-		url:"${pageContext.request.contextPath }/getDateDictsByAjaxInDda.do",
+		url:$("#constant-contextPath").text()+"/getDateDictsByAjaxInDda.ajax",
 		data:"dataDictionary.tableColumn="+tableCloumn,
 		type:"post",
 		dataType:"json",
@@ -11,6 +11,33 @@ function dataDictionary(tableCloumn,fun){
 		}
 	});
 };
+//异步获得所有部门
+function department(fun){
+	$.ajax({
+		url:$("#constant-contextPath").text()+"/pers/ajaxDeptsInDaOf.ajax",
+		type:"post",
+		dataType:"json",
+		success:function(data){
+			fun(data);
+		}
+	});
+}
+//异步获得职位
+function position(did,fun){
+	var param = "";
+	if(did!=null&&did.length!=0&&did != "-1")
+		param = "position.department.id="+did;
+	$.ajax({
+		url:$("#constant-contextPath").text()+"/pers/ajaxPositionsInPaOf.ajax",
+		type:"post",
+		data:param,
+		dataType:"json",
+		success:function(data){
+			fun(data);
+		}
+	});
+}
+
 $(function(){
   
   //搜索结果模型初始化

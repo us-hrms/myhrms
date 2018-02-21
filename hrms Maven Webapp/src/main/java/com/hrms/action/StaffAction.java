@@ -99,10 +99,20 @@ public class StaffAction extends ServletScopeAware {
     }
     
     public String staffBaseInfo(){
-
+    	if(page == null)
+    		page = new Page();
+    	this.staffList = staffService.getStaffs(page);
 		//设置菜单选项
 		if(itemId != null)
 			MenuHelper.changeMenu(session, itemId);
+    	this.toJsp = "jsp/staffInfoManager/staffBaseInfo";
+    	return "tojsp";
+    }
+    
+    public String findStaffBaseInfo(){
+    	if(page == null)
+    		page = new Page();
+    	this.staffList = staffService.getStaffs(this.staff,page);
     	this.toJsp = "jsp/staffInfoManager/staffBaseInfo";
     	return "tojsp";
     }
@@ -121,6 +131,14 @@ public class StaffAction extends ServletScopeAware {
 		PrintWriteUtil.write(response,staffList.size()>0?JSONObject.toJSONString(staffList):"暂无");
     	return null;
     }
+
+	public List<Staff> getStaffList() {
+		return staffList;
+	}
+
+	public void setStaffList(List<Staff> staffList) {
+		this.staffList = staffList;
+	}
 
 	public Page getPage() {
 		return page;
