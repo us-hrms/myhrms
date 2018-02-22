@@ -1,4 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -54,24 +55,62 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<div class="container-fluid mybody">
   		<div class="main">
 		    <div class="container-fluid well mycontext" id="container-Info">
+			    
+		        <!-- breadcrumb -->
+		        <div class="ui large breadcrumb" style="margin:5px 0px 15px 25px;">
+		          <c:forEach items="${currNavbar!=null?currNavbar:commonNavbar}" var="currNB">
+		          	<c:if test="${currNB.selected}">
+		          		<a class="section" href="${currNB.link}">${currNB.name}</a>
+		          	</c:if>
+		          </c:forEach>
+		          <i class="right chevron icon divider"></i>
+		          <c:forEach items="${currMenu.listGroups}" var="lg">
+		            <c:forEach items="${lg.items}" var="item">
+		          		<c:if test="${item.selected}">
+		          			<a class="section" href="${lg.items[0].link}">${lg.name}</a>
+		          			<i class="right chevron icon divider"></i>
+		          			<a class="section" href="${item.link}">${item.name}</a>
+		          		</c:if>
+			        </c:forEach>
+		          </c:forEach>
+		          <i class="right chevron icon divider"></i>
+		          <div class="active section">实习员工信息</div>
+		        </div>
+		        <!-- end breadcrumb -->
 		      <!-- search header -->
 		      <div class="container-fluid" style="border-top:1px dashed #87CEEB;border-bottom:1px dashed #87CEEB;border-radius:20px;padding:20px 0px 10px 0px;max-width:90%;">
-		      <form >
+		      <form action="${pageContext.request.contextPath }/cult/findCultivateInCaOf.html" method="post">
+	      	<!-- 页标 -->
+	      	<input type="hidden" name="page.pageIndex" value="${page.pageIndex}">
 		        <div class="form-group form-inline text-center col-md-offset-1 col-md-10">
 		          <div class="form-group col-md-6">
 		              <label class="control-label">平 台 名 称：</label>
-		              <input type="text" class="form-control" placeholder="Like Cultivate Name">
+		              <input type="text" class="form-control" placeholder="Like Cultivate Name" name="cultivate.name" default="${cultivate.name }">
 		          </div>
 		          <div class="form-group col-md-6">
 		              <label class="control-label">可 获 证 书：</label>
-		              <select class="form-control" style="width:196px;">
+		              <%-- <c:forEach items="${cultivate.certificates }" var="tcc" varStatus="status">
+		              	<c:if test="${status.last }">
+		              		<c:set var="ccid" value="${tcc.id }" scope="request" />
+		              	</c:if>
+		              </c:forEach> --%>
+		              <select class="form-control" style="width:196px;" name="certificate.id" sele="${certificate.id }">
 		                <option value="-1">所有</option>
-		                <option>证书1</option>
-		                <option>证书2</option>
-		                <option>证书3</option>
-		                <option>证书4</option>
 		              </select>
 		          </div>
+	            <script type="text/javascript">
+	            	/* 异步获得职证书*/
+	            	certificate(function(data){
+	            		var target = $("[name='certificate.id']");
+				   		for(var idx in data){
+				   			var cert = data[idx];
+				    		target.append("<option value='"+cert.id+"'>"+cert.name+"</option>");
+				    	}
+				    	var sele = $(target).attr("sele");
+				      	if(sele!= null && sele.length > 0)
+				       		$(target).val(sele).change();
+	            	});
+	            </script>
 		        </div>
 		        <div class="form-group form-inline text-center col-md-offset-1 col-md-10">
 		          <div class="form-group col-md-offset-3 col-md-3">
@@ -93,17 +132,35 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		            <tr>
 		              <th>编号 / ID</th>
 		              <th>平台名称 / Name</th>
-		              <th>可获证书 / Certificate</th>
+		              <th style="width:600px;">可获证书 / Certificate</th>
 		              <th>描述 / Discription</th>
 		              <th class="center aligned">操作 / Operating</th>
 		            </tr>
 		          </thead>
 		          <tbody>
-		            <tr>
+		          	<c:forEach items="${cultivates }" var="tcul">
+		          		<tr>
+			              <td>${tcul.id }</td>
+			              <td>${tcul.name }</td>
+			              <td  ><span style="display:inline-block;width:600px;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;">
+			              	<c:forEach items="${tcul.certificates }" var="ttcer" varStatus="status">
+			              		${ttcer.name }${status.last?'':'、' }
+			              	</c:forEach>
+			              </span></td>
+			              <!-- data-content="Vivamus sagittis lacus vel augue  laoreet rutrum faucibus." -->
+			              <td><span style="display:inline-block;width:200px;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;">${tcul.discription }</span></td>
+			              <td class="center aligned">
+			                <a href="#" title="查看"><i class="unhide icon text-info"></i></a>
+			                <a href="#" title="修改"><i class="edit icon text-success"></i></a>
+			                <a href="#" title="删除"><i class="trash outline icon text-danger"></i></a>
+			              </td>
+			            </tr>
+		          	</c:forEach>
+		            <!-- <tr>
 		              <td>1</td>
 		              <td>No Action</td>
 		              <td  >None</td>
-		              <!-- data-content="Vivamus sagittis lacus vel augue  laoreet rutrum faucibus." -->
+		              data-content="Vivamus sagittis lacus vel augue  laoreet rutrum faucibus."
 		              <td>None</td>
 		              <td class="center aligned">
 		                <a href="#" title="查看"><i class="unhide icon text-info"></i></a>
@@ -121,84 +178,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		                <a href="#" title="修改"><i class="edit icon text-success"></i></a>
 		                <a href="#" title="删除"><i class="trash outline icon text-danger"></i></a>
 		              </td>
-		            </tr>
-		            <tr>
-		              <td>3</td>
-		              <td>Denied</td>
-		              <td >None</td>
-		              <td>None</td>
-		              <td class="center aligned">
-		                <a href="#" title="查看"><i class="unhide icon text-info"></i></a>
-		                <a href="#" title="修改"><i class="edit icon text-success"></i></a>
-		                <a href="#" title="删除"><i class="trash outline icon text-danger"></i></a>
-		              </td>
-		            </tr>
-		            <tr>
-		              <td>4</td>
-		              <td>No Action</td>
-		              <td >None</td>
-		              <td>None</td>
-		              <td class="center aligned">
-		                <a href="#" title="查看"><i class="unhide icon text-info"></i></a>
-		                <a href="#" title="修改"><i class="edit icon text-success"></i></a>
-		                <a href="#" title="删除"><i class="trash outline icon text-danger"></i></a>
-		              </td>
-		            </tr>
-		            <tr>
-		              <td>5</td>
-		              <td>Approved</td>
-		              <td >Requires call</td>
-		              <td>None</td>
-		              <td class="center aligned">
-		                <a href="#" title="查看"><i class="unhide icon text-info"></i></a>
-		                <a href="#" title="修改"><i class="edit icon text-success"></i></a>
-		                <a href="#" title="删除"><i class="trash outline icon text-danger"></i></a>
-		              </td>
-		            </tr>
-		            <tr>
-		              <td>6</td>
-		              <td>Denied</td>
-		              <td >None</td>
-		              <td>None</td>
-		              <td class="center aligned">
-		                <a href="#" title="查看"><i class="unhide icon text-info"></i></a>
-		                <a href="#" title="修改"><i class="edit icon text-success"></i></a>
-		                <a href="#" title="删除"><i class="trash outline icon text-danger"></i></a>
-		              </td>
-		            </tr>
-		            <tr>
-		              <td>7</td>
-		              <td>Denied</td>
-		              <td >None</td>
-		              <td>None</td>
-		              <td class="center aligned">
-		                <a href="#" title="查看"><i class="unhide icon text-info"></i></a>
-		                <a href="#" title="修改"><i class="edit icon text-success"></i></a>
-		                <a href="#" title="删除"><i class="trash outline icon text-danger"></i></a>
-		              </td>
-		            </tr>
-		            <tr>
-		              <td>8</td>
-		              <td>Denied</td>
-		              <td >None</td>
-		              <td>None</td>
-		              <td class="center aligned">
-		                <a href="#" title="查看"><i class="unhide icon text-info"></i></a>
-		                <a href="#" title="修改"><i class="edit icon text-success"></i></a>
-		                <a href="#" title="删除"><i class="trash outline icon text-danger"></i></a>
-		              </td>
-		            </tr>
-		            <tr>
-		              <td>9</td>
-		              <td>Denied</td>
-		              <td >None</td>
-		              <td>None</td>
-		              <td class="center aligned">
-		                <a href="#" title="查看"><i class="unhide icon text-info"></i></a>
-		                <a href="#" title="修改"><i class="edit icon text-success"></i></a>
-		                <a href="#" title="删除"><i class="trash outline icon text-danger"></i></a>
-		              </td>
-		            </tr>
+		            </tr> -->
+		            
 		          </tbody>
 		          <tfoot class="full-width">
 		            <tr>
@@ -230,17 +211,64 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		          </div>
 		        </div>
 		        <!-- 分页 -->
-		        <div class="text-center">
-		          <ul class="pagination">
-		            <li><a href="#">上一页</a></li>
-		            <li class="active"><a>1</a></li>
-		            <li><a href="#">2</a></li>
-		            <li><a href="#">3</a></li>
-		            <li><a href="#">4</a></li>
-		            <li><a href="#">5</a></li>
-		            <li><a href="#">下一页</a></li>
+		   	 	 <!-- 设置页标前后显示的页数 -->
+		      <c:set var="count" value="2" />
+		      <div class="text-center">
+		        <ul class="pagination">
+		        	<c:if test="${page.pageIndex > 1}">
+		            	<li><a index="${page.pageIndex-1}">上一页</a></li>
+		            </c:if>
+		            <!-- 页前页标 -->
+		            <c:choose>
+		            	<c:when test="${page.pageIndex - count > 0}">
+		            		<c:if test="${page.pageIndex - count > 1}">
+					            <li><a index="1">1</a></li>
+					            <li><a >···</a></li>
+		            		</c:if>
+			            	<c:forEach var="index" begin="${page.pageIndex - count}" end="${page.pageIndex - 1}" >
+			           			<li><a index="${index}">${index}</a></li>
+			            	</c:forEach>
+		            	</c:when>
+		            	<c:when test="${page.pageIndex - count == 0}">
+			            	<c:forEach var="index" begin="${page.pageIndex - count + 1}" end="${page.pageIndex - 1}" >
+			           			<li><a index="${index}">${index}</a></li>
+			            	</c:forEach>
+		            	</c:when>
+		            	<c:when test="${page.pageIndex - count < 0 && page.pageIndex - 1 > 1}">
+			            	<c:forEach var="index" begin="1" end="${page.pageIndex - 1}" >
+			           			<li><a index="${index}">${index}</a></li>
+			            	</c:forEach>
+		            	</c:when>
+		            </c:choose>
+		            <!-- 当前页 -->
+		            <li class="active"><a>${page.pageIndex}</a></li>
+		            <!-- 页后页标 -->
+		            <c:choose>
+		            	<c:when test="${page.pageIndex + count < page.pageCount}">
+		            		<c:forEach var="index" begin="${page.pageIndex +  1}" end="${page.pageIndex + count}" >
+			           			<li><a index="${index}">${index}</a></li>
+			            	</c:forEach>
+				            <li><a >···</a></li>
+				            <li><a index="${page.pageCount}">${page.pageCount}</a></li>
+		            	</c:when>
+		            	<c:when test="${page.pageIndex + count == page.pageCount}">
+		            		<c:forEach var="index" begin="${page.pageIndex +  1}" end="${page.pageCount}" >
+			           			<li><a index="${index}">${index}</a></li>
+			            	</c:forEach>
+		            	</c:when>
+		            	<c:when test="${page.pageIndex + count > page.pageCount && page.pageIndex + 1 <= page.pageCount}">
+		            		<c:forEach var="index" begin="${page.pageIndex +  1}" end="${page.pageCount}" >
+			           			<li><a index="${index}">${index}</a></li>
+			            	</c:forEach>
+		            	</c:when>
+		            </c:choose>
+		            <!-- 下一页 -->
+		            <c:if test="${page.pageIndex < page.pageCount}">
+		           		<li><a index="${page.pageIndex+1}">下一页</a></li>
+		            </c:if>
 		          </ul>
-		        </div>
+		      </div>
+		      <!-- end 分页  -->
 		      </div>
 		    </div>
 		

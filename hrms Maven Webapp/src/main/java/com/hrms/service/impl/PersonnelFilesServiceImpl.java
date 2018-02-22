@@ -89,6 +89,10 @@ public class PersonnelFilesServiceImpl implements PersonnelFilesService {
 		Map<String, Object> map = new HashMap<String, Object>();//存储hql中要填入的值
 		//动态参数录入
 		if(personnelFiles!=null){
+			if(personnelFiles.getNo()!=null){
+				params.add(" no like :no ");
+				map.put("no", "%"+personnelFiles.getNo()+"%");
+			}
 			Staff staff = personnelFiles.getStaff();
 			if(staff != null){
 				//姓名

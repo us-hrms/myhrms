@@ -94,10 +94,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	        
 	        <!-- search header -->
 	        <div class="container-fluid" style="border-top:1px dashed #87CEEB;border-bottom:1px dashed #87CEEB;border-radius:20px;padding:20px 0px 10px 0px;max-width:90%;">
-	        <form method="post" action="${pageContext.request.contextPath }/staff/findStaffFileInPfaOf.html">
+	        <form method="post" action="${pageContext.request.contextPath }/staff/findStaffFileInScoaOf.html">
 	      	<!-- 页标 -->
 	      	<input type="hidden" name="page.pageIndex" value="${page.pageIndex}">
 	          <div class="form-group form-inline text-center col-md-offset-1 col-md-10">
+	            <div class="form-group col-md-4">
+	                <label class="control-label">档 案 编 号：</label>
+	                <input type="text" class="form-control" placeholder="Like File No" name="personnelFiles.no" default="${personnelFiles.no }">
+	            </div>
 	            <div class="form-group col-md-4">
 	                <label class="control-label">员 工 工 号：</label>
 	                <input type="text" class="form-control" placeholder="Like Staff No" name="personnelFiles.staff.no" default="${personnelFiles.staff.no }">
@@ -106,6 +110,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	                <label class="control-label">员 工 名 称：</label>
 	                <input type="text" class="form-control" placeholder="Like Staff Name" name="personnelFiles.staff.name" default="${personnelFiles.staff.name }">
 	            </div>
+	          </div>
+	          <div class="form-group form-inline text-center col-md-offset-1 col-md-10">
 	            <div class="form-group col-md-4">
 	                <label class="control-label">员 工 状 态：</label>
 	                <select class="form-control" style="width:196px;" name="personnelFiles.staff.dataDictionaryByStatus.id" sele="${personnelFiles.staff.dataDictionaryByStatus.id }">
@@ -126,9 +132,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	          			});
 		          </script>
 	            </div>
-	          </div>
-	          <div class="form-group form-inline text-center col-md-offset-1 col-md-10">
-	            <div class="form-group col-md-6">
+	            <div class="form-group col-md-4">
 	                <label class="control-label">所 在 部 门：</label>
 	                <select class="form-control" style="width:196px;" name="personnelFiles.staff.department.id" sele="${personnelFiles.staff.department.id }">
 	                  <option value="-1">全部</option>
@@ -146,7 +150,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				       		$(target).val(sele).change();
 	            	});
 	            </script>
-	            <div class="form-group col-md-6">
+	            <div class="form-group col-md-4">
 	                <label class="control-label">所 处 职 位：</label>
 	                <select class="form-control" style="width:196px;" name="personnelFiles.staff.position.id" sele="${personnelFiles.staff.position.id }">
 	                  <option value="-1">全部</option>

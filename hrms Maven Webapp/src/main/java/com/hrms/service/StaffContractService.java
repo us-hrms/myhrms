@@ -3,6 +3,7 @@ package com.hrms.service;
 import java.util.List;
 
 import com.hrms.entity.StaffContract;
+import com.hrms.page.Page;
 
 public interface StaffContractService {
 	   /**
@@ -28,10 +29,12 @@ public interface StaffContractService {
 	    * @return
 	    */
 	   List<StaffContract> getStaffContracts();
+	   List<StaffContract> getStaffContracts(Page page);
 	   /** 
         * 根据条件查询员工合同
         */
 	   List<StaffContract>  getStaffContracts(StaffContract staffContract);
+	   List<StaffContract>  getStaffContracts(StaffContract staffContract,Page page);
 	   /**
 	    * 根据id查询单个员工合同
 	    * @param id

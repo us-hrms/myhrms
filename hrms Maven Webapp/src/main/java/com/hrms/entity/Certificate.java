@@ -3,6 +3,8 @@ package com.hrms.entity;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.alibaba.fastjson.annotation.JSONField;
+
 /**
  * Certificate entity. @author MyEclipse Persistence Tools
  */
@@ -14,8 +16,12 @@ public class Certificate implements java.io.Serializable {
 	private Long id;
 	private String name;
 	private String discription;
+
+	@JSONField(serialize=false)
 	private Set cultivateStaffs = new HashSet(0);
+	@JSONField(serialize=false)
 	private Set staffCertificates = new HashSet(0);
+	@JSONField(serialize=false)
 	private Set cultivates = new HashSet(0);
 
 	// Constructors
@@ -26,6 +32,13 @@ public class Certificate implements java.io.Serializable {
 
 	/** minimal constructor */
 	public Certificate(String name) {
+		this.name = name;
+	}
+	
+
+	public Certificate(Long id, String name) {
+		super();
+		this.id = id;
 		this.name = name;
 	}
 

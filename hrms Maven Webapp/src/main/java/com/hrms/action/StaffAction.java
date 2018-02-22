@@ -83,10 +83,26 @@ public class StaffAction extends ServletScopeAware {
     }
     
     public String newStaffManager(){
-
+    	if(staff == null)
+    		staff = new Staff();
+    	if(page == null)
+    		page = new Page();
+    	this.staff.setDataDictionaryByStatus(new DataDictionary(16l));
+    	this.staffList = staffService.getStaffs(this.staff,page);
 		//设置菜单选项
 		if(itemId != null)
 			MenuHelper.changeMenu(session, itemId);
+    	this.toJsp = "jsp/staffInfoManager/newStaffManager";
+    	return "tojsp";
+    }
+    
+    public String findNewStaffManager(){
+    	if(staff == null)
+    		staff = new Staff();
+    	if(page == null)
+    		page = new Page();
+    	this.staff.setDataDictionaryByStatus(new DataDictionary(16l));
+    	this.staffList = staffService.getStaffs(this.staff,page);
     	this.toJsp = "jsp/staffInfoManager/newStaffManager";
     	return "tojsp";
     }

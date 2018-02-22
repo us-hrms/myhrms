@@ -6,11 +6,18 @@
 <struts>
 	<!-- 员工信息管理的action 配置 -->
     <package name="staffInfo" extends="my-struts" namespace="/staff">
+    	<global-results>
+    		<result name="toHome" type="redirect">../home.html</result>
+    	</global-results>
     	<action name="*InSaOf*" class="staffAction" method="{1}">
     		<param name="itemId">{2}</param>
     		<result name="tojsp">../${toJsp}.jsp</result>
     	</action>
     	<action name="*InSceaOf*" class="staffCertificateAction" method="{1}">
+    		<param name="itemId">{2}</param>
+    		<result name="tojsp">../${toJsp}.jsp</result>
+    	</action>
+    	<action name="*InCaOf*" class="certificateAction" method="{1}">
     		<param name="itemId">{2}</param>
     		<result name="tojsp">../${toJsp}.jsp</result>
     	</action>

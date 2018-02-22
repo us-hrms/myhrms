@@ -3,6 +3,7 @@ package com.hrms.service;
 import java.util.List;
 
 import com.hrms.entity.StaffCertificate;
+import com.hrms.page.Page;
 
 public interface StaffCertificateService {
 
@@ -29,12 +30,14 @@ public interface StaffCertificateService {
 	 * @return
 	 */
 	List<StaffCertificate> getStaffCertificates();
+	List<StaffCertificate> getStaffCertificates(Page page);
 	/**
 	 * 根据条件查询
 	 * @param staffCertificate
 	 * @return
 	 */
 	List<StaffCertificate> getStaffCertificates(StaffCertificate staffCertificate);
+	List<StaffCertificate> getStaffCertificates(StaffCertificate staffCertificate,Page page);
 	/**
 	 * 根据id获得单个对象
 	 * @param id

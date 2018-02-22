@@ -1,5 +1,6 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -45,6 +46,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         //tomcat 里需要 否则会回到根目录的#页面
         return false;
       });
+      //部门下拉框改变事件
+      $("[name='staffCertificate.staff.department.id']").change(function(){
+      	/* 异步获得职位 */
+       	var did = $(this).val();
+       	position(did,function(data){
+       		var target = $("[name='staffCertificate.staff.position.id']");
+       		$(target).empty().append("<option value='-1'>全部</option>");
+	 		for(var idx in data){
+	 			var posi = data[idx];
+	  			target.append("<option value='"+posi.id+"'>"+posi.name+"</option>");
+	  		}
+       	});
+      });
     });
  	</script>
   </head>
@@ -80,48 +94,81 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	        
 		      <!-- search header -->
 		      <div class="container-fluid" style="border-top:1px dashed #87CEEB;border-bottom:1px dashed #87CEEB;border-radius:20px;padding:20px 0px 10px 0px;max-width:90%;">
-		      <form >
+		      <form  action="${pageContext.request.contextPath }/staff/findStaffCertificateManagerInSceaOf.html" method="post">
+	      	<!-- 页标 -->
+	      	<input type="hidden" name="page.pageIndex" value="${page.pageIndex}">
 		        <div class="form-group form-inline text-center col-md-offset-1 col-md-10">
-		          <div class="form-group col-md-6">
-		              <label class="control-label">员 工 工 号：</label>
-		              <input type="text" class="form-control" placeholder="Like Staff No">
+		          <div class="form-group col-md-4">
+		              <label class="control-label">证 书 编 号：</label>
+		              <input type="text" class="form-control" placeholder="Like Certificate No" name="staffCertificate.no" default="${staffCertificate.no }">
 		          </div>
-		          <div class="form-group col-md-6">
+		          <div class="form-group col-md-4">
+		              <label class="control-label">员 工 工 号：</label>
+		              <input type="text" class="form-control" placeholder="Like Staff No" name="staffCertificate.staff.no" default="${staffCertificate.staff.no }">
+		          </div>
+		          <div class="form-group col-md-4">
 		              <label class="control-label">员 工 名 称：</label>
-		              <input type="text" class="form-control" placeholder="Like Staff Name">
+		              <input type="text" class="form-control" placeholder="Like Staff Name" name="staffCertificate.staff.name" default="${staffCertificate.staff.name }">
 		          </div>
 		        </div>
 		        <div class="form-group form-inline text-center col-md-offset-1 col-md-10">
 		          <div class="form-group col-md-4">
 		              <label class="control-label">所 属 部 门：</label>
-		              <select class="form-control" style="width:196px;">
+		              <select class="form-control" style="width:196px;" name="staffCertificate.staff.department.id" sele="${staffCertificate.staff.department.id }">
 		                <option value="-1">全部</option>
-		                <option>部门1</option>
-		                <option>部门2</option>
-		                <option>部门3</option>
-		                <option>部门4</option>
 		              </select>
 		          </div>
+	            <script type="text/javascript">
+	            	department(function(data){
+	            		var target = $("[name='staffCertificate.staff.department.id']");
+				   		for(var idx in data){
+				   			var dept = data[idx];
+				    		target.append("<option value='"+dept.id+"'>"+dept.name+"</option>");
+				    	}
+				    	var sele = $(target).attr("sele");
+				      	if(sele!= null && sele.length > 0)
+				       		$(target).val(sele).change();
+	            	});
+	            </script>
 		          <div class="form-group col-md-4">
 		              <label class="control-label">所 属 职 位：</label>
-		              <select class="form-control" style="width:196px;">
+		              <select class="form-control" style="width:196px;" name="staffCertificate.staff.position.id" sele="${staffCertificate.staff.position.id }">
 		                <option value="-1">全部</option>
-		                <option>职位1</option>
-		                <option>职位2</option>
-		                <option>职位3</option>
-		                <option>职位4</option>
 		              </select>
 		          </div>
+	            <script type="text/javascript">
+	            	/* 异步获得职位 */
+	            	var did = $("[name='staffCertificate.staff.department.id']").attr("sele");
+	            	position(did,function(data){
+	            		var target = $("[name='staffCertificate.staff.position.id']");
+				   		for(var idx in data){
+				   			var posi = data[idx];
+				    		target.append("<option value='"+posi.id+"'>"+posi.name+"</option>");
+				    	}
+				    	var sele = $(target).attr("sele");
+				      	if(sele!= null && sele.length > 0)
+				       		$(target).val(sele).change();
+	            	});
+	            </script>
 		          <div class="form-group col-md-4">
 		              <label class="control-label">所 持 证 书：</label>
-		              <select class="form-control" style="width:196px;">
+		              <select class="form-control" style="width:196px;" name="staffCertificate.certificate.id" sele="${staffCertificate.certificate.id }">
 		                <option value="-1">所有</option>
-		                <option>证书1</option>
-		                <option>证书2</option>
-		                <option>证书3</option>
-		                <option>证书4</option>
 		              </select>
 		          </div>
+	            <script type="text/javascript">
+	            	/* 异步获得职证书*/
+	            	certificate(function(data){
+	            		var target = $("[name='staffCertificate.certificate.id']");
+				   		for(var idx in data){
+				   			var cert = data[idx];
+				    		target.append("<option value='"+cert.id+"'>"+cert.name+"</option>");
+				    	}
+				    	var sele = $(target).attr("sele");
+				      	if(sele!= null && sele.length > 0)
+				       		$(target).val(sele).change();
+	            	});
+	            </script>
 		        </div>
 		        <div class="form-group form-inline text-center col-md-offset-1 col-md-10">
 		          <div class="form-group col-md-offset-3 col-md-3">
@@ -141,16 +188,31 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		              <th colspan="6" class="h4 center aligned"><span style="letter-spacing:20px;">员工证书信</span>息</th>
 		            </tr>
 		            <tr>
-		              <th>员工姓名 / Name</th>
+		              <th>员工 / No-Name</th>
+		              <th>岗位 / Dept-Posi </th>
 		              <th>证书号 / No</th>
 		              <th>证书名称 / CName</th>
-		              <th>是否培训获得</th>
 		              <th>获得日期 / Date</th>
 		              <th class="center aligned">操作 / Operating</th>
 		            </tr>
 		          </thead>
 		          <tbody>
-		            <tr>
+			          <c:forEach items="${staffCertificates }" var="tsc">
+			            <tr>
+			              <td>${tsc.staff.no } - ${tsc.staff.name }</td>
+			              <td>${tsc.staff.department.name } - ${tsc.staff.position.name }</td>
+			              <td>${tsc.no }</td>
+			              <td>${tsc.certificate.name }</td>
+			              <td><fmt:formatDate pattern="yyyy年MM月dd日" value="${tsc.date }" /></td>
+			              <td class="center aligned">
+			                <a href="#" title="查看详情"><i class="unhide icon text-info"></i></a>
+			                <a href="#" title="查看证书"><i class="newspaper icon text-info"></i></a>
+			                <a href="#" title="修改"><i class="edit icon text-success"></i></a>
+			                <a href="#" title="删除"><i class="trash outline icon text-danger"></i></a>
+			              </td>
+			            </tr>
+			          </c:forEach>
+		           <!--  <tr>
 		              <td>1</td>
 		              <td>No Action</td>
 		              <td>None</td>
@@ -175,98 +237,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		                <a href="#" title="修改"><i class="edit icon text-success"></i></a>
 		                <a href="#" title="删除"><i class="trash outline icon text-danger"></i></a>
 		              </td>
-		            </tr>
-		            <tr>
-		              <td>3</td>
-		              <td>Denied</td>
-		              <td >None</td>
-		              <td>None</td>
-		              <td>None</td>
-		              <td class="center aligned">
-		                <a href="#" title="查看详情"><i class="unhide icon text-info"></i></a>
-		                <a href="#" title="查看证书"><i class="newspaper icon text-info"></i></a>
-		                <a href="#" title="修改"><i class="edit icon text-success"></i></a>
-		                <a href="#" title="删除"><i class="trash outline icon text-danger"></i></a>
-		              </td>
-		            </tr>
-		            <tr>
-		              <td>4</td>
-		              <td>No Action</td>
-		              <td >None</td>
-		              <td>None</td>
-		              <td>None</td>
-		              <td class="center aligned">
-		                <a href="#" title="查看详情"><i class="unhide icon text-info"></i></a>
-		                <a href="#" title="查看证书"><i class="newspaper icon text-info"></i></a>
-		                <a href="#" title="修改"><i class="edit icon text-success"></i></a>
-		                <a href="#" title="删除"><i class="trash outline icon text-danger"></i></a>
-		              </td>
-		            </tr>
-		            <tr>
-		              <td>5</td>
-		              <td>Approved</td>
-		              <td >Requires call</td>
-		              <td>None</td>
-		              <td>None</td>
-		              <td class="center aligned">
-		                <a href="#" title="查看详情"><i class="unhide icon text-info"></i></a>
-		                <a href="#" title="查看证书"><i class="newspaper icon text-info"></i></a>
-		                <a href="#" title="修改"><i class="edit icon text-success"></i></a>
-		                <a href="#" title="删除"><i class="trash outline icon text-danger"></i></a>
-		              </td>
-		            </tr>
-		            <tr>
-		              <td>6</td>
-		              <td>Denied</td>
-		              <td >None</td>
-		              <td>None</td>
-		              <td>None</td>
-		              <td class="center aligned">
-		                <a href="#" title="查看详情"><i class="unhide icon text-info"></i></a>
-		                <a href="#" title="查看证书"><i class="newspaper icon text-info"></i></a>
-		                <a href="#" title="修改"><i class="edit icon text-success"></i></a>
-		                <a href="#" title="删除"><i class="trash outline icon text-danger"></i></a>
-		              </td>
-		            </tr>
-		            <tr>
-		              <td>7</td>
-		              <td>Denied</td>
-		              <td >None</td>
-		              <td>None</td>
-		              <td>None</td>
-		              <td class="center aligned">
-		                <a href="#" title="查看详情"><i class="unhide icon text-info"></i></a>
-		                <a href="#" title="查看证书"><i class="newspaper icon text-info"></i></a>
-		                <a href="#" title="修改"><i class="edit icon text-success"></i></a>
-		                <a href="#" title="删除"><i class="trash outline icon text-danger"></i></a>
-		              </td>
-		            </tr>
-		            <tr>
-		              <td>8</td>
-		              <td>Denied</td>
-		              <td >None</td>
-		              <td>None</td>
-		              <td>None</td>
-		              <td class="center aligned">
-		                <a href="#" title="查看详情"><i class="unhide icon text-info"></i></a>
-		                <a href="#" title="查看证书"><i class="newspaper icon text-info"></i></a>
-		                <a href="#" title="修改"><i class="edit icon text-success"></i></a>
-		                <a href="#" title="删除"><i class="trash outline icon text-danger"></i></a>
-		              </td>
-		            </tr>
-		            <tr>
-		              <td>9</td>
-		              <td>Denied</td>
-		              <td >None</td>
-		              <td>None</td>
-		              <td>None</td>
-		              <td class="center aligned">
-		                <a href="#" title="查看详情"><i class="unhide icon text-info"></i></a>
-		                <a href="#" title="查看证书"><i class="newspaper icon text-info"></i></a>
-		                <a href="#" title="修改"><i class="edit icon text-success"></i></a>
-		                <a href="#" title="删除"><i class="trash outline icon text-danger"></i></a>
-		              </td>
-		            </tr>
+		            </tr> -->
+		            
 		          </tbody>
 		          <tfoot class="full-width">
 		            <tr>
@@ -298,17 +270,64 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		          </div>
 		        </div>
 		        <!-- 分页 -->
-		        <div class="text-center">
-		          <ul class="pagination">
-		            <li><a href="#">上一页</a></li>
-		            <li class="active"><a>1</a></li>
-		            <li><a href="#">2</a></li>
-		            <li><a href="#">3</a></li>
-		            <li><a href="#">4</a></li>
-		            <li><a href="#">5</a></li>
-		            <li><a href="#">下一页</a></li>
+		   	  <!-- 设置页标前后显示的页数 -->
+		      <c:set var="count" value="2" />
+		      <div class="text-center">
+		        <ul class="pagination">
+		        	<c:if test="${page.pageIndex > 1}">
+		            	<li><a index="${page.pageIndex-1}">上一页</a></li>
+		            </c:if>
+		            <!-- 页前页标 -->
+		            <c:choose>
+		            	<c:when test="${page.pageIndex - count > 0}">
+		            		<c:if test="${page.pageIndex - count > 1}">
+					            <li><a index="1">1</a></li>
+					            <li><a >···</a></li>
+		            		</c:if>
+			            	<c:forEach var="index" begin="${page.pageIndex - count}" end="${page.pageIndex - 1}" >
+			           			<li><a index="${index}">${index}</a></li>
+			            	</c:forEach>
+		            	</c:when>
+		            	<c:when test="${page.pageIndex - count == 0}">
+			            	<c:forEach var="index" begin="${page.pageIndex - count + 1}" end="${page.pageIndex - 1}" >
+			           			<li><a index="${index}">${index}</a></li>
+			            	</c:forEach>
+		            	</c:when>
+		            	<c:when test="${page.pageIndex - count < 0 && page.pageIndex - 1 > 1}">
+			            	<c:forEach var="index" begin="1" end="${page.pageIndex - 1}" >
+			           			<li><a index="${index}">${index}</a></li>
+			            	</c:forEach>
+		            	</c:when>
+		            </c:choose>
+		            <!-- 当前页 -->
+		            <li class="active"><a>${page.pageIndex}</a></li>
+		            <!-- 页后页标 -->
+		            <c:choose>
+		            	<c:when test="${page.pageIndex + count < page.pageCount}">
+		            		<c:forEach var="index" begin="${page.pageIndex +  1}" end="${page.pageIndex + count}" >
+			           			<li><a index="${index}">${index}</a></li>
+			            	</c:forEach>
+				            <li><a >···</a></li>
+				            <li><a index="${page.pageCount}">${page.pageCount}</a></li>
+		            	</c:when>
+		            	<c:when test="${page.pageIndex + count == page.pageCount}">
+		            		<c:forEach var="index" begin="${page.pageIndex +  1}" end="${page.pageCount}" >
+			           			<li><a index="${index}">${index}</a></li>
+			            	</c:forEach>
+		            	</c:when>
+		            	<c:when test="${page.pageIndex + count > page.pageCount && page.pageIndex + 1 <= page.pageCount}">
+		            		<c:forEach var="index" begin="${page.pageIndex +  1}" end="${page.pageCount}" >
+			           			<li><a index="${index}">${index}</a></li>
+			            	</c:forEach>
+		            	</c:when>
+		            </c:choose>
+		            <!-- 下一页 -->
+		            <c:if test="${page.pageIndex < page.pageCount}">
+		           		<li><a index="${page.pageIndex+1}">下一页</a></li>
+		            </c:if>
 		          </ul>
-		        </div>
+		      </div>
+		      <!-- end 分页  -->
 		      </div>
 		    </div>
 		

@@ -38,6 +38,18 @@ function position(did,fun){
 	});
 }
 
+//异步获得证书
+function certificate(fun){
+	$.ajax({
+		url:$("#constant-contextPath").text()+"/staff/ajaxGetCertificatesInCaOf.ajax",
+		type:"post",
+		dataType:"json",
+		success:function(data){
+			fun(data);
+		}
+	});
+}
+
 $(function(){
   
   //搜索结果模型初始化

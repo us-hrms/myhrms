@@ -1,4 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -54,6 +55,28 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<div class="container-fluid mybody">
   		<div class="main">
 		    <div class="container-fluid well mycontext" id="container-Info">
+			    
+		        <!-- breadcrumb -->
+		        <div class="ui large breadcrumb" style="margin:5px 0px 15px 25px;">
+		          <c:forEach items="${currNavbar!=null?currNavbar:commonNavbar}" var="currNB">
+		          	<c:if test="${currNB.selected}">
+		          		<a class="section" href="${currNB.link}">${currNB.name}</a>
+		          	</c:if>
+		          </c:forEach>
+		          <i class="right chevron icon divider"></i>
+		          <c:forEach items="${currMenu.listGroups}" var="lg">
+		            <c:forEach items="${lg.items}" var="item">
+		          		<c:if test="${item.selected}">
+		          			<a class="section" href="${lg.items[0].link}">${lg.name}</a>
+		          			<i class="right chevron icon divider"></i>
+		          			<a class="section" href="${item.link}">${item.name}</a>
+		          		</c:if>
+			        </c:forEach>
+		          </c:forEach>
+		          <i class="right chevron icon divider"></i>
+		          <div class="active section">实习员工信息</div>
+		        </div>
+		        <!-- end breadcrumb -->
 		      <!-- search header -->
 		      <div class="container-fluid" style="border-top:1px dashed #87CEEB;border-bottom:1px dashed #87CEEB;border-radius:20px;padding:20px 0px 10px 0px;max-width:90%;">
 		      <form >
